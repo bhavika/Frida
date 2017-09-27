@@ -32,7 +32,14 @@ def select_impressionist_artists(filepath):
     print("Total Unique Artists in the Impressionism style:", len(unique_artists))
     print("Paintings by each artist:", artist_paintings_count)
 
+    more_than_40 = {k: v for k,v in artist_paintings_count.items() if v >= 40}
+    more_than_30 = {k: v for k, v in artist_paintings_count.items() if v >= 30}
+
+    print("{} artists with 40 paintings or more: {}".format(len(more_than_40), more_than_40))
+    print("{} artists with 30 paintings or more: {}".format(len(more_than_30), more_than_30))
+
+
 if __name__ == '__main__':
     train_file = '/artist_train.csv'
-    read_artist_data(base_address=base_address,filepath=train_file)
+    # read_artist_data(base_address=base_address,filepath=train_file)
     select_impressionist_artists(base_address+'Impressionism')
