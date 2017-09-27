@@ -6,6 +6,11 @@ base_address = '/home/bhavika/wikiart/'
 
 
 def read_artist_data(base_address, filepath):
+    """
+    Read artist_train.csv to view each image. 
+    :param base_address: str, absolute location for the wikiart dataset
+    :param filepath: str, absolute location for the train/eval file to be read. 
+    """
     filepath = base_address + filepath
     paintings_by_artist = pd.read_csv(filepath,names=['location', 'class'], header=0)
     paintings_by_artist['absolute_location'] = base_address+paintings_by_artist['location']
@@ -18,9 +23,16 @@ def read_artist_data(base_address, filepath):
 
 
 def select_impressionist_artists(filepath):
+    """
+    We want to find out how many impressionist artists are present in the dataset 
+    to analyze data needs and availability. 
+    Required: Atleast 15 artists with 40 paintings each. 
+    :param filepath: absolute location of Impressionism folder. 
+    """
     paintings = os.listdir(filepath)
     unique_artists = set()
     artist_paintings_count = {}
+
     for filename in paintings:
         s = filename.find('_')
         artist_name = filename[:s]
@@ -39,7 +51,20 @@ def select_impressionist_artists(filepath):
     print("{} artists with 30 paintings or more: {}".format(len(more_than_30), more_than_30))
 
 
+def create_dataset(filepath):
+    paintings = os.listdir(filepath)
+    frida_data = {}
+    for filename in paintings:
+        s = filename.find('_')
+        artist_name = filename[:s]
+        frida_data[filename] = artist_name
+
+    frida = pd.DataFrame(list(frida_data.items()), columns=['location', 'artist'])
+    frida.to_csv('../data/impressionists.csv', sep=',', index=False)
+
 if __name__ == '__main__':
     train_file = '/artist_train.csv'
+    style = 'Impressionism'
     # read_artist_data(base_address=base_address,filepath=train_file)
-    select_impressionist_artists(base_address+'Impressionism')
+    select_impressionist_artists(base_address+style)
+    create_dataset(base_address+style)
