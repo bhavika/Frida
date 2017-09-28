@@ -1,6 +1,7 @@
 import pandas as pd
 from PIL import Image
 import os
+from sklearn.preprocessing import LabelEncoder
 
 base_address = '/home/bhavika/wikiart/'
 
@@ -60,7 +61,11 @@ def create_dataset(filepath):
         frida_data[filename] = artist_name
 
     frida = pd.DataFrame(list(frida_data.items()), columns=['location', 'artist'])
+    le = LabelEncoder()
+    labels = le.fit(frida['artist'])
+    frida['class'] = le.transform(frida['artist'])
     frida.to_csv('../data/impressionists.csv', sep=',', index=False)
+
 
 if __name__ == '__main__':
     train_file = '/artist_train.csv'
