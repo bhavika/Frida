@@ -1,12 +1,15 @@
-from torch.utils.data import dataset
+import torch.utils.data as data_utils
 import os
+import torch
+import torchvision
+from torchvision import transforms
 import random
 from PIL import Image
 import pandas as pd
 import numpy as np
 
 
-class WikiartDataset(dataset.Dataset):
+class WikiartDataset(data_utils.Dataset):
     def __init__(self, config):
         self.dataset_path = config.get('wikiart_path')
         self.images = config.get('images_path')
@@ -17,11 +20,12 @@ class WikiartDataset(dataset.Dataset):
     def __getitem__(self, index):
         dataset = pd.read_csv(self.dataset_path, sep=',')
         row = dataset.iloc[index]
-        image = Image.open(self.images+ "/"+row['location'])
-        image = np.array(image)
+        image = Image.open(self.images + "/"+row['location'])
+        image = image.resize((300, 300))
         image = np.array(image).astype(np.float32)
-        label = np.array(row['class']).astype(np.int)
-        return image, label
+        label = row['class']
+        sample = {'image': torch.from_numpy(image), 'class': label}
+        return sample
 
     def __len__(self):
         return len(self.ids_list)
@@ -30,6 +34,7 @@ wiki = WikiartDataset(config={'wikiart_path': '../data/impressionists.csv',
                               'images_path': '/home/bhavika/wikiart/Impressionism',
                               'train_size': 500})
 
-for i in range(wiki.__len__()):
-    image, label = wiki.__getitem__(i)
-    print (image, label)
+dataloader = data_utils.DataLoader(wiki, batch_size=4, shuffle=True, num_workers=2)
+
+for i, sample in enumerate(dataloader):
+    print (i, sample['class'], sample['image'].size())
