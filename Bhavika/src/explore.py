@@ -2,6 +2,7 @@ import pandas as pd
 from PIL import Image
 import os
 from sklearn.preprocessing import LabelEncoder
+import matplotlib.pyplot as plt
 
 base_address = '/home/bhavika/wikiart/'
 
@@ -53,6 +54,12 @@ def select_impressionist_artists(filepath):
 
 
 def create_dataset(filepath):
+    """
+    We separate out the Impressionist era data and artists from that period. Our train, test & validation sets will 
+    be based on this subset only. 
+    Creates a CSV file with the image location, artist and class label (encoded for artists). 
+    :param filepath: str, the base location where Impressionist paintings are stored. 
+    """
     paintings = os.listdir(filepath)
     frida_data = {}
     for filename in paintings:
@@ -64,7 +71,7 @@ def create_dataset(filepath):
     le = LabelEncoder()
     labels = le.fit(frida['artist'])
     frida['class'] = le.transform(frida['artist'])
-    frida.to_csv('../data/impressionists.csv', sep=',', index=False)
+    frida.to_csv('../data/impressionists.csv', sep=',', index=True, index_label='ids')
 
 
 if __name__ == '__main__':
