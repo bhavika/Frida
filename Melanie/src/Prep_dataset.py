@@ -19,21 +19,28 @@ def resize_photo(file_source, file_dest, newSize):
     except Exception as exception:
         print("Exception for " + str(file_dest) + " is: " + str(exception))
 
-
-def create_annotation_file(rootDirectory, query, carIndicator, imageCount):
-    with open(rootDirectory + 'annotation.txt', "w") as annotation_file:
-        annotation_file.write(query + "\n")
-        annotation_file.write(str(carIndicator) + "\n")
-        annotation_file.write(str(imageCount) + "\n")
-
 def main():
     imgDir = 'C:\\Users\\Melanie\\Desktop\\impress_data\\'
     imgDirResize = 'C:\\Users\\Melanie\\Desktop\\impress_data_small\\'
     imageList = [f for f in os.listdir(imgDir) if isfile(join(imgDir, f))]    
     #print (imageList)
+    c=1
+    b=1
+        
+    with open('C:\\Users\\Melanie\\Desktop\\art_anno\\annotation.txt', "w") as annotation_file:
+        for originalImage in imageList:
+            if c > 40 and c < 81:
+                b = 2
+            if c > 80:
+                b = 3
+            o = originalImage.split('_')
+            #print(o[0])
+            resize_photo(join(imgDir, originalImage),join(imgDirResize,originalImage), (210,140))
 
-    for originalImage in imageList:
-        resize_photo(join(imgDir, originalImage),join(imgDirResize,originalImage), (210,140))
-
+            annotation_file.write(o[0] + "\n")
+            annotation_file.write(str(b) + "\n")
+            #print(b)
+            annotation_file.write(str(40) + "\n")
+            c=c+1
 if __name__ == "__main__":
     main()
