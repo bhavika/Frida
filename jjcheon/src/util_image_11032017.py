@@ -2,7 +2,6 @@ import sys, os
 from PIL import Image, ImageStat, ImageFilter
 import argparse
 import cv2
-import numpy as np
 from pathlib import Path
 
 # Via http://stackoverflow.com/a/3498247
@@ -25,20 +24,12 @@ def find_brightness( im_file ):
 
 def find_edge(im_file) :
     #image = Image.open(im_file)
-    #image = im_file.filter(ImageFilter.FIND_EDGES)
+    image = im_file.filter(ImageFilter.FIND_EDGES)
     #image.show()
-
-    #stat = ImageStat.Stat(image)
+    stat = ImageStat.Stat(image)
     #print "Read RMS find edge of image: "
     #print stat.rms[0]
-
-    img = cv2.imread(im_file)
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-    gray = np.float32(gray)
-    dst = cv2.cornerHarris(gray, 2, 3, 0.04)
-    return 0
-    #return stat.rms[0]
+    return stat.rms[0]
 
 def find_contour(im_file) :
     #image = Image.open(im_file)
