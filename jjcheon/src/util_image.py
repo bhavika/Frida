@@ -37,13 +37,16 @@ def find_edge(im_file) :
 
     gray = np.float32(gray)
     dst = cv2.cornerHarris(gray, 2, 3, 0.04)
-    return 0
+    return dst.size
     #return stat.rms[0]
 
+    ImageFilter.MinFilter(int=3)
 def find_contour(im_file) :
     #image = Image.open(im_file)
     image = im_file.filter(ImageFilter.CONTOUR)
+    image = image.filter(ImageFilter.CONTOUR)
     #image.show()
+
     stat = ImageStat.Stat(image)
     #print "Read RMS find contour of image: "
     #print stat.rms[0]
