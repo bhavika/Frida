@@ -63,12 +63,13 @@ for epoch in range(2):
     for i, data in enumerate(trainloader, 0):
 
         inputs, labels = data
-        inputs, labels = Variable(inputs), Variable(labels)
 
+        inputs, labels = Variable(inputs), Variable(labels)
         optimizer.zero_grad()
 
         # forward + backward + optimize
         outputs = net(inputs)
+
         loss = criterion(outputs, labels)
         loss.backward()
         optimizer.step()
