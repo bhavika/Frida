@@ -8,7 +8,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torchvision import transforms
-
+import random
 
 class Net(nn.Module):
     def __init__(self):
@@ -53,20 +53,18 @@ class WikiartDataset(data_utils.Dataset):
         return len(self.ids_list)
 
 
-wiki_train = WikiartDataset(config={'wikiart_path': '../data/train.csv',
+wiki_train = WikiartDataset(config={'wikiart_path': '../data/train_full.csv',
                               'images_path': '/home/bhavika/wikiart/Impressionism',
-                              'size': 4})
+                              'size': 7826})
 
-wiki_test = WikiartDataset(config={'wikiart_path': '../data/test.csv',
+wiki_test = WikiartDataset(config={'wikiart_path': '../data/test_full.csv',
                               'images_path': '/home/bhavika/wikiart/Impressionism',
-                              'size': 4})
+                              'size': 5218})
 
-wiki_train_dataloader = data_utils.DataLoader(wiki_train, batch_size=4, shuffle=True, num_workers=2)
-wiki_test_dataloader = data_utils.DataLoader(wiki_test, batch_size=4, shuffle=True, num_workers=2)
-
+wiki_train_dataloader = data_utils.DataLoader(wiki_train, batch_size=1, shuffle=True, num_workers=2)
+wiki_test_dataloader = data_utils.DataLoader(wiki_test, batch_size=1, shuffle=True, num_workers=2)
 
 net = Net()
-
 
 # Defining the loss function
 criterion = nn.CrossEntropyLoss()
@@ -77,7 +75,7 @@ def get_classes(filepath):
     data = pd.read_csv(filepath, sep=',')
     return list(data[0:1000]['class'].unique())
 
-classes = get_classes('../data/train.csv')
+classes = get_classes('../data/train_full.csv')
 
 # Train
 
@@ -88,7 +86,7 @@ for epoch in range(2):
         inputs, labels = data['image'], data['class']
 
         # make this 4, 32, 32, 3 -> 4, 3, 32, 32
-        inputs = inputs.view(4, 3, 32, 32)
+        inputs = inputs.view(1, 3, 32, 32)
 
         inputs, labels = Variable(inputs), Variable(labels)
         optimizer.zero_grad()

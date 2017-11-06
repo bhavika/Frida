@@ -3,6 +3,7 @@ from PIL import Image
 import os
 from sklearn.preprocessing import LabelEncoder
 import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
 
 base_address = '/home/bhavika/wikiart/'
 
@@ -53,6 +54,25 @@ def select_impressionist_artists(filepath):
     print("{} artists with 30 paintings or more: {}".format(len(more_than_30), more_than_30))
 
 
+def create_traintest(filepath):
+    data = pd.read_csv(filepath, sep=',')
+    # Filter artists that appear only once - since we don't have enough train/test images for them
+    counts = data['class'].value_counts()
+    data = data[data['class'].isin(counts[counts > 1].index)]
+    train, test = train_test_split(data, train_size=0.6, shuffle=True, stratify=data['class'])
+    train.to_csv('../data/train_full.csv', sep=',', index=False)
+    test.to_csv('../data/test_full.csv', sep=',', index=False)
+
+    print(train.shape)
+    print(test.shape)
+    # print(train.sort_values(by='class'))
+    # print(test.sort_values(by='class'))
+    # labels_train = train['class'].unique()
+    # labels_test = test['class'].unique()
+    #
+    # print(set(labels_train) ^ set(labels_test))
+
+
 def create_dataset(filepath):
     """
     We separate out the Impressionist era data and artists from that period. Our train, test & validation sets will 
@@ -78,5 +98,6 @@ if __name__ == '__main__':
     train_file = '/artist_train.csv'
     style = 'Impressionism'
     # read_artist_data(base_address=base_address,filepath=train_file)
-    select_impressionist_artists(base_address+style)
-    create_dataset(base_address+style)
+    # select_impressionist_artists(base_address+style)
+    # create_dataset(base_address+style)
+    create_traintest('../data/impressionists.csv')
