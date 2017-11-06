@@ -3,6 +3,7 @@ from PIL import Image, ImageFilter, ImageFile, ImageStat
 import os
 import numpy as np
 import pandas as pd
+import time
 
 from sklearn import svm
 #from sklearn.cross_validation import train_test_split
@@ -18,9 +19,11 @@ from util_image import find_blur_value, find_edge_enhance, find_smooth_more, fin
     find_emboss, find_edge_enhance_more, find_detail, find_smooth
 
 #load the impressionist csv and images file
-base_address = '/Users/User/PycharmProjects/PR-termProject/wikiart/'
-style = 'Impressionism/'
-train_file = 'impressionists.csv'
+#base_address = '/Users/User/PycharmProjects/PR-termProject/wikiart/'
+base_address = '/home/jay/PycharmProjects/688-project/wikiart/'
+
+style = 'Impressionism-5a-5p/'
+train_file = 'impressionists-5a-5p.csv'
 filepath = base_address
 unique_artists = set()
 unique_link = list()
@@ -32,7 +35,7 @@ paintings_by_artist['absolute_location'] = base_address +style+ paintings_by_art
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 rows_count = paintings_by_artist.shape[0]
-cols_count = 7
+cols_count = 5
 actual_image_count = 0
 
 #investigate the actual number of images
@@ -74,11 +77,11 @@ for i in range(len(list(unique_link))):
     #class data
     #label_data[i] = label
 
-
+##before feature selection
     #feature values : blur, brightness, edge, edge_enhance, edge_enhance_more, contour,emboss, detail, smooth, smooth_more
 #    feature[i][0] = find_brightness(img)
 #    feature[i][1] = find_blur_value(link)
-#    feature[i][2] = find_edge(img)
+#    feature[i][2] = find_edge(link)
 #    feature[i][3] = find_edge_enhance(img)
 #    feature[i][4] = find_edge_enhance_more(img)
 #    feature[i][5] = find_contour(img)
@@ -86,35 +89,41 @@ for i in range(len(list(unique_link))):
 #    feature[i][7] = find_detail(img)
 #    feature[i][8] = find_smooth(img)
 #    feature[i][9] = find_smooth_more(img)
+
+
+## 5a-5p
+# ##After LinearSVC feature selection : brightness, blur, contour, emboss, smooth_more
     feature[i][0] = find_brightness(img)
     feature[i][1] = find_blur_value(link)
-    feature[i][2] = find_edge(link)
-    feature[i][3] = find_contour(img)
-    feature[i][4] = find_emboss(img)
-    feature[i][5] = find_detail(img)
-    feature[i][6] = find_smooth(img)
-    #s = pd.Series(blur, brightness, edge, edge_enhance, edge_enhance_more, contour,emboss, detail, smooth, smooth_more, label)
-    #table = plt.table(blur)
+    feature[i][2] = find_contour(img)
+    feature[i][3] = find_smooth(img)
+    feature[i][4] = find_smooth_more(img)
     unique_artists.add(label_data[i])
+
+
+## 5a-5p
+##After ExtraForestClassifier feature selection : brightness, blur, edge, contour,
+    feature[i][0] = find_brightness(img)
+    feature[i][1] = find_blur_value(link)
+    feature[i][2] = find_edge_enhance_more(img)
+    feature[i][3] = find_contour(img)
+
+
+##After ExtraTreesClassifier feature selection : brightness, blur, contour, emboss, smooth_more
 
 
 # Create a dataframe with the ten feature variables
 #df = pd.DataFrame(feature, columns=['brightness','blur','edge', 'edge_enhance','edge_enhance_more','contour','emboss','detail','smooth','smooth_more'])
-df = pd.DataFrame(feature, columns=['brightness','blur','edge', 'contour','emboss','detail','smooth'])
-print "feature value:", df
+
+#df = pd.DataFrame(feature, columns=['brightness','blur','edge', 'contour','emboss','detail','smooth'])
+#df = pd.DataFrame(feature, columns=['brightness','blur','edge', 'contour'])
+#print ("feature value:", df)
 #remove the first row, because there exists redundant data
 #df.drop(df.index[0])
 
 #when dropping the column, use this code
 #df.drop(['brightness'], 1, inplace=True)
 
-#from sklearn.datasets import load_iris
-#iris = load_iris()
-
-# Add a new column with the species names, this is what we are going to try to predict
-#print label_data
-#print list(unique_artists)
-#print array
 
 #s = pd.Series(list(unique_artists), dtype="category")
 #print label_data
@@ -123,10 +132,6 @@ print "feature value:", df
 #df['author'] = pd.Categorical.from_codes(list(unique_artists),list(unique_artists))
 
 
-#print(feature)
-#print label_data
-#print np.shape(label_data)
-
 #df = pd.read_csv('breast-cancer-wisconsin.data.txt')
 #df.replace('?',-99999, inplace=True)
 #df.drop(['id'], 1, inplace=True)
@@ -134,27 +139,19 @@ print "feature value:", df
 #y = np.array(df['class'])
 
 X_train, X_test, y_train, y_test = train_test_split(feature, label_data, test_size=0.2)
-print("X_train", X_train)
-print("X_test", X_test)
-print("len(X_train)", len(X_train))
-print("len(X_test)", len(X_test))
-print("y_train", y_train)
-print("y_test", y_test)
-print("len(y_train)", len(y_train))
-print("len(y_test)", len(y_test))
+print (X_train)
+print (y_train)
 
+svm_start_time = time.time()
 clf = svm.SVC(kernel='linear', C = 1.0)
 clf.fit(X_train, y_train)
 x_predict = clf.predict(X_test)
-print "x_predict", x_predict
-print "len(x_predict)",len(x_predict)
-#print "mean_squere_error", mean_squared_error(y_test, x_predict )
-#print "svm :",r2_score(y_test, x_predict )
-print "svm :", accuracy_score(y_test, x_predict)
-#print "svm :",r2_score(x_predict , y_test )
+print ("svm :", accuracy_score(y_test, x_predict)*100)
+print("--- %s seconds ---" % (time.time() - svm_start_time))
 
 
 # Create a random forest Classifier. By convention, clf means 'Classifier'
+random_start_time = time.time()
 clf2 = RandomForestClassifier(n_jobs=2, random_state=0)
 
 # Train the Classifier to take the training features and learn how they relate
@@ -166,8 +163,8 @@ x_predict_random_forest = clf2.predict(X_test)
 
 # Create confusion matrix
 #print "random forest :",r2_score(y_test, x_predict_random_forest)
-print "random forest:", accuracy_score(y_test, x_predict_random_forest)
+print ("random forest:", accuracy_score(y_test, x_predict_random_forest)*100)
+print("--- %s seconds ---" % (time.time() - random_start_time))
 
-print y_test
 #print np.reshape(x_predict_random_forest, [1,x_predict_random_forest.shape[0]])
-print pd.crosstab(y_test, x_predict_random_forest,  rownames=None, colnames=None)
+#print (pd.crosstab(y_test, x_predict_random_forest,  rownames=None, colnames=None))
