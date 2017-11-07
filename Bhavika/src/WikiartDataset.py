@@ -52,10 +52,13 @@ class WikiartDataset(data_utils.Dataset):
         return len(self.ids_list)
 
 
+print("Loading training data....")
+
 wiki_train = WikiartDataset(config={'wikiart_path': '../data/train_demo.csv',
                               'images_path': '/home/bhavika/wikiart/Impressionism',
                               'size': 20})
 
+print("Loading test data....")
 wiki_test = WikiartDataset(config={'wikiart_path': '../data/test_demo.csv',
                               'images_path': '/home/bhavika/wikiart/Impressionism',
                               'size': 18})
@@ -80,7 +83,10 @@ classes = get_classes('../data/train_demo.csv')
 
 # Train
 
-for epoch in range(100):
+for epoch in range(2):
+
+    print("Epoch: ", epoch)
+
     running_loss = 0.0
 
     for i, data in enumerate(wiki_train_dataloader, 0):
@@ -94,7 +100,7 @@ for epoch in range(100):
 
         # forward + backward + optimize
         outputs = net(inputs)
-
+        
         loss = criterion(outputs, labels)
         loss.backward()
         optimizer.step()
@@ -108,6 +114,7 @@ for epoch in range(100):
 
 print('Finished Training')
 
+print("Predicting on the test set... ")
 class_correct = list(0. for i in range(4))
 class_total = list(0. for i in range(4))
 for data in wiki_test_dataloader:
