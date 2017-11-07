@@ -7,8 +7,7 @@ from torch.autograd import Variable
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from torchvision import transforms
-import random
+
 
 class Net(nn.Module):
     def __init__(self):
@@ -18,7 +17,7 @@ class Net(nn.Module):
         self.conv2 = nn.Conv2d(6, 16, 5)
         self.fc1 = nn.Linear(16*5*5, 120)
         self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, 10)
+        self.fc3 = nn.Linear(84, 4)
 
     def forward(self, x):
         x = self.pool(F.relu(self.conv1(x)))
@@ -53,33 +52,35 @@ class WikiartDataset(data_utils.Dataset):
         return len(self.ids_list)
 
 
-wiki_train = WikiartDataset(config={'wikiart_path': '../data/train_full.csv',
+wiki_train = WikiartDataset(config={'wikiart_path': '../data/train_demo.csv',
                               'images_path': '/home/bhavika/wikiart/Impressionism',
-                              'size': 7826})
+                              'size': 20})
 
-wiki_test = WikiartDataset(config={'wikiart_path': '../data/test_full.csv',
+wiki_test = WikiartDataset(config={'wikiart_path': '../data/test_demo.csv',
                               'images_path': '/home/bhavika/wikiart/Impressionism',
-                              'size': 5218})
+                              'size': 18})
 
 wiki_train_dataloader = data_utils.DataLoader(wiki_train, batch_size=1, shuffle=True, num_workers=2)
 wiki_test_dataloader = data_utils.DataLoader(wiki_test, batch_size=1, shuffle=True, num_workers=2)
 
+
 net = Net()
+
 
 # Defining the loss function
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
+optimizer = optim.SGD(net.parameters(), lr=0.01, momentum=0.9)
 
 
 def get_classes(filepath):
     data = pd.read_csv(filepath, sep=',')
     return list(data[0:1000]['class'].unique())
 
-classes = get_classes('../data/train_full.csv')
+classes = get_classes('../data/train_demo.csv')
 
 # Train
 
-for epoch in range(2):
+for epoch in range(100):
     running_loss = 0.0
 
     for i, data in enumerate(wiki_train_dataloader, 0):
@@ -111,15 +112,15 @@ class_correct = list(0. for i in range(4))
 class_total = list(0. for i in range(4))
 for data in wiki_test_dataloader:
     images, labels = data['image'], data['class']
-    images = images.view(4, 3, 32, 32)    
+    images = images.view(1, 3, 32, 32)
     outputs = net(Variable(images))
     _, predicted = torch.max(outputs.data, 1)
     c = (predicted == labels).squeeze()
-    for i in range(4):
+    for i in range(1):
         label = labels[i]
         class_correct[label] += c[i]
         class_total[label] += 1
 
-for i in range(4):
+for i in range(len(classes)):
     print('Accuracy of %5s : %2d %%' % (
         classes[i], 100 * class_correct[i] / class_total[i]))
