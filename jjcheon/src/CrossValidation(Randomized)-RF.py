@@ -1,44 +1,32 @@
-from pandas import read_csv
-from sklearn.ensemble import ExtraTreesClassifier
-from sklearn.feature_selection import RFE
-from sklearn.datasets import load_iris
-from sklearn.feature_selection import SelectFromModel
-
-#iris = load_iris()
-
-import pandas as pd
-from PIL import Image, ImageFilter, ImageFile, ImageStat
-import os
-import numpy as np
-import pandas as pd
-
-from sklearn import svm
-#from sklearn.cross_validation import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import mean_squared_error, r2_score, accuracy_score
+from PIL import ImageStat, Image, ImageFile
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
-import matplotlib.pyplot as plt
+import pandas as pd
+
+from util_image import find_brightness, find_blur_value, find_edge, find_edge_enhance, find_edge_enhance_more, \
+    find_contour, find_emboss, find_detail, find_smooth, find_smooth_more
+
+#print (__doc__)
+
+import numpy as np
+from time import time
+from scipy.stats import randint as sp_randint
+
+from sklearn.model_selection import RandomizedSearchCV
+from sklearn.ensemble import RandomForestClassifier
 from pathlib import Path
-from statsmodels.genmod.tests.results.results_glm_poisson_weights import predicted
 
-from util_image import find_blur_value, find_edge_enhance, find_smooth_more, find_brightness, find_edge, find_contour, \
-    find_emboss, find_edge_enhance_more, find_detail, find_smooth
-
+#get some data
 #load the impressionist csv and images file
 base_address = '/home/jay/PycharmProjects/688-project/wikiart/'
 
-style = 'Impressionism-5a-5p/'
-train_file = 'impressionists-5a-5p.csv'
+style = 'Impressionism-3a-3p/'
+train_file = 'impressionists-3a-3p.csv'
 filepath = base_address
 unique_artists = set()
 unique_link = list()
 
-
-print("")
 print("Load the dataset from csv file(impressionists-3a-3p")
 print("")
-
 #file categories are ids,location,artist,class
 paintings_by_artist = pd.read_csv(filepath+train_file, names=['ids','location','artist', 'class'], header=0)
 paintings_by_artist['absolute_location'] = base_address +style+ paintings_by_artist['location']
@@ -64,10 +52,11 @@ feature= [[0 for j in range(cols_count)] for i in range(actual_image_count)]
 label_data = [0 for i in range(actual_image_count)]
 
 
+
+print()
 print("Calculate the feature values of each paintings ")
 print()
 print("Features are brightness,blur,edge,contour,emboss,smooth, and so on")
-print()
 #read records one by one
 #print(paintings_by_artist.shape[0])
 #feature =[paintings_by_artist.shape[0], 10]
@@ -94,17 +83,7 @@ for i in range(len(list(unique_link))):
     #label_data[i] = label
 
 
-    #feature values : brightness,blur, edge, edge_enhance, edge_enhance_more, contour,emboss, detail, smooth, smooth_more
-#    feature[i][0] = find_brightness(img)
-#    feature[i][1] = find_blur_value(link)
-#    feature[i][2] = find_edge(img)
-#    feature[i][3] = find_edge_enhance(img)
-#    feature[i][4] = find_edge_enhance_more(img)
-#    feature[i][5] = find_contour(img)
-#    feature[i][6] = find_emboss(img)
-#    feature[i][7] = find_detail(img)
-#    feature[i][8] = find_smooth(img)
-#    feature[i][9] = find_smooth_more(img)
+    #feature values : blur, brightness, edge, edge_enhance, edge_enhance_more, contour,emboss, detail, smooth, smooth_more
     feature[i][0] = find_brightness(img)
     feature[i][1] = find_blur_value(link)
     feature[i][2] = find_edge(link)
@@ -117,30 +96,47 @@ for i in range(len(list(unique_link))):
     feature[i][9] = find_smooth_more(img)
     unique_artists.add(label_data[i])
 
-
-
 #X_train, X_test, y_train, y_test = train_test_split(feature, label_data, test_size=0.2)
 
 
-#X, y = iris.data, iris.target
-#print (X)
-#print (X.shape)
-
-print ("Original all features value - show first row of feature data")
-print (feature[0])
-print ("")
-print("brightness(1),blur(2),edge(3),edge_enhance(4), edge_enhance_more(4), contour(5),emboss(6),detail(7),smooth(9), smooth_more(10)")
 print()
-clf = ExtraTreesClassifier()
-#clf = clf.fit(X, y)
-clf = clf.fit(feature, label_data)
-print ("Report the importance value per features")
 
-for i in range(len(clf.feature_importances_)) :
-    print (i+1, clf.feature_importances_[i])
-#print ("edge, detail, emboss, smooth_more")
-model = SelectFromModel(clf, prefit=True)
-X_new  = model.transform(feature)
+print("Start estimating optimal parameters of RandomForest")
 print()
-print ("Picked features")
-print (X_new[0])
+
+#build a classifier
+clf = RandomForestClassifier(n_estimators=20)
+
+#Utility function to report best scores
+def report(results, n_top=3) :
+    for i in range(1, n_top +1):
+        candidates = np.flatnonzero(results['rank_test_score'] ==1)
+        for candidate in candidates:
+            print("Model with rank: {0}".format(i))
+            print("Mean validation score: {0:.3f} (std: {1:.3f})".format(
+                results['mean_test_score'][candidate],
+                results['std_test_score'][candidate]))
+            print("Parameters: {0}".format(results['params'][candidate]))
+            print()
+
+#specify parameters and distributions to sample form
+param_dist = {"max_depth": [3,None],
+              "max_features": sp_randint(1,11),
+              "min_samples_split": sp_randint(2,11),
+              "min_samples_leaf": sp_randint(1,11),
+              "bootstrap":[True, False],
+              "criterion":["gini","entropy"]}
+
+# run randomized search
+n_iter_search =20
+random_search = RandomizedSearchCV(clf, param_distributions=param_dist,
+                                   n_iter=n_iter_search)
+start = time()
+random_search.fit(feature, label_data)
+print("RandomizedSearchCV took %.2f seconds for %d candidates" 
+      " parameter settings." %((time()- start), n_iter_search))
+report(random_search.cv_results_)
+
+
+
+

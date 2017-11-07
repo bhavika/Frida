@@ -1,23 +1,20 @@
-from pandas import read_csv
-from sklearn.ensemble import ExtraTreesClassifier
-from sklearn.feature_selection import RFE
-from sklearn.datasets import load_iris
+#from pandas import read_csv
+#from sklearn.ensemble import ExtraTreesClassifier
+#from sklearn.feature_selection import RFE
+#from sklearn.datasets import load_iris
 from sklearn.feature_selection import SelectFromModel
-
-
-import pandas as pd
 from PIL import Image, ImageFilter, ImageFile, ImageStat
-import os
-import numpy as np
+#import os
+#import numpy as np
 import pandas as pd
 
-from sklearn import svm
+#from sklearn import svm
 #from sklearn.cross_validation import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import mean_squared_error, r2_score, accuracy_score
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
-import matplotlib.pyplot as plt
+#from sklearn.ensemble import RandomForestClassifier
+#from sklearn.metrics import mean_squared_error, r2_score, accuracy_score
+#from sklearn.model_selection import train_test_split
+#from sklearn.preprocessing import LabelEncoder
+#import matplotlib.pyplot as plt
 from pathlib import Path
 
 from sklearn.svm import LinearSVC
@@ -26,11 +23,16 @@ from statsmodels.genmod.tests.results.results_glm_poisson_weights import predict
 from util_image import find_blur_value, find_edge_enhance, find_smooth_more, find_brightness, find_edge, find_contour, \
     find_emboss, find_edge_enhance_more, find_detail, find_smooth
 
+
+print("")
+print("Load the dataset from csv file(impressionists-3a-3p")
+print("")
+
 #load the impressionist csv and images file
 base_address = '/home/jay/PycharmProjects/688-project/wikiart/'
 
-style = 'Impressionism-5a-5p/'
-train_file = 'impressionists-5a-5p.csv'
+style = 'Impressionism-3a-3p/'
+train_file = 'impressionists-3a-3p.csv'
 filepath = base_address
 unique_artists = set()
 unique_link = list()
@@ -46,6 +48,11 @@ rows_count = paintings_by_artist.shape[0]
 cols_count = 10
 actual_image_count = 0
 
+print()
+print("Calculate the feature values of each paintings ")
+print()
+print("Features are brightness,blur,edge,contour,emboss,smooth, and so on")
+print()
 #investigate the actual number of images
 for i in range(paintings_by_artist.shape[0]):
     link = paintings_by_artist.iloc[i]['absolute_location']
@@ -116,10 +123,15 @@ for i in range(len(list(unique_link))):
 #X, y = iris.data, iris.target
 #print (X)
 #print (X.shape)
-print (feature)
+print ("Original all features ")
+print("brightness(1),blur(2),edge(3),edge_enhance(4), edge_enhance_more(4), contour(5),emboss(6),detail(7),smooth(9), smooth_more(10)")
+print (feature[0])
 clf = LinearSVC(C=0.01, penalty="l1", dual=False).fit(feature,label_data)
 #clf = clf.fit(X, y)
 model = SelectFromModel(clf, prefit=True)
 X_new  = model.transform(feature)
 X_new.shape
-print (X_new)
+print ("")
+print ("Picked features")
+print(" brightness(1),blur(2),contour(5),emboss(6),detail(7))")
+print (X_new[0])
