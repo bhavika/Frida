@@ -91,6 +91,20 @@ def create_dataset(filepath):
     le = LabelEncoder()
     labels = le.fit(frida['artist'])
     frida['class'] = le.transform(frida['artist'])
+
+    counts = frida['class'].value_counts()
+    filter = list(counts[counts > 40].index)
+
+    # top 15 artists
+    more_than_40 = (frida[frida['class'].isin(filter)])
+    top40 = more_than_40.groupby('class').head(40)
+    top40.sort_values(by='class', inplace=True, ascending=True)
+    top40 = top40.head(600)
+
+    print("Selected 40 paintings for each of these artists")
+    print(top40['class'].value_counts())
+
+    top40.to_csv('../data/top40.csv', sep=',', index=True, index_label='ids')
     frida.to_csv('../data/impressionists.csv', sep=',', index=True, index_label='ids')
 
 
@@ -99,5 +113,5 @@ if __name__ == '__main__':
     style = 'Impressionism'
     # read_artist_data(base_address=base_address,filepath=train_file)
     # select_impressionist_artists(base_address+style)
-    # create_dataset(base_address+style)
-    create_traintest('../data/impressionists.csv')
+    create_dataset(base_address+style)
+    # create_traintest('../data/impressionists.csv')

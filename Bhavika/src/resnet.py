@@ -7,26 +7,7 @@ from torch.autograd import Variable
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-
-
-class Net(nn.Module):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(3, 6, 5)
-        self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = nn.Conv2d(6, 16, 5)
-        self.fc1 = nn.Linear(16*5*5, 120)
-        self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, 4)
-
-    def forward(self, x):
-        x = self.pool(F.relu(self.conv1(x)))
-        x = self.pool(F.relu(self.conv2(x)))
-        x = x.view(-1, 16*5*5)
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        x = self.fc3(x)
-        return x
+from torchvision.models import resnet18
 
 
 class WikiartDataset(data_utils.Dataset):
@@ -41,7 +22,7 @@ class WikiartDataset(data_utils.Dataset):
         dataset = pd.read_csv(self.dataset_path, sep=',')
         row = dataset.iloc[index]
         image = Image.open(self.images + "/"+row['location'])
-        image = image.resize((32, 32))
+        image = image.resize((224, 224))
         image = np.array(image).astype(np.float32)
         label = row['class']
 
@@ -67,8 +48,7 @@ wiki_train_dataloader = data_utils.DataLoader(wiki_train, batch_size=1, shuffle=
 wiki_test_dataloader = data_utils.DataLoader(wiki_test, batch_size=1, shuffle=True, num_workers=2)
 
 
-net = Net()
-
+net = resnet18(pretrained=True)
 
 # Defining the loss function
 criterion = nn.CrossEntropyLoss()
@@ -93,7 +73,7 @@ for epoch in range(2):
         inputs, labels = data['image'], data['class']
 
         # make this 4, 32, 32, 3 -> 4, 3, 32, 32
-        inputs = inputs.view(1, 3, 32, 32)
+        inputs = inputs.view(1, 3, 224, 224)
 
         inputs, labels = Variable(inputs), Variable(labels)
         optimizer.zero_grad()
@@ -119,7 +99,7 @@ class_correct = list(0. for i in range(4))
 class_total = list(0. for i in range(4))
 for data in wiki_test_dataloader:
     images, labels = data['image'], data['class']
-    images = images.view(1, 3, 32, 32)
+    images = images.view(1, 3, 224, 224)
     outputs = net(Variable(images))
     _, predicted = torch.max(outputs.data, 1)
     c = (predicted == labels).squeeze()
