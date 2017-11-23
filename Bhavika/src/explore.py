@@ -73,7 +73,7 @@ def create_traintest(filepath, target_suffix):
     # print(set(labels_train) ^ set(labels_test))
 
 
-def create_dataset(filepath):
+def create_dataset(filepath, artist_count, image_count):
     """
     We separate out the Impressionist era data and artists from that period. Our train, test & validation sets will 
     be based on this subset only. 
@@ -93,28 +93,28 @@ def create_dataset(filepath):
     frida['class'] = le.transform(frida['artist'])
 
     counts = frida['class'].value_counts()
-    filter = list(counts[counts > 40].index)
+    filter = list(counts[counts > image_count].index)
 
-    # filter for artists that appear 40 or more times
-    more_than_40 = (frida[frida['class'].isin(filter)])
-    top40 = more_than_40.groupby('class').head(40)
-    top40.sort_values(by='class', inplace=True, ascending=True)
-    top40 = top40.head(600)
+    # filter for artists that appear image_count times or more
+    more_than_img_count = (frida[frida['class'].isin(filter)])
+    topn = more_than_img_count.groupby('class').head(image_count)
+    topn.sort_values(by='class', inplace=True, ascending=True)
+    topn = topn.head(artist_count*image_count)
 
     # Reindex these class labels to start with 0
 
-    labels = le.fit(top40['artist'])
-    top40['class'] = le.transform(top40['artist'])
+    labels = le.fit(topn['artist'])
+    topn['class'] = le.transform(topn['artist'])
 
     mappings = dict(zip(le.classes_, le.transform(le.classes_)))
-    mappings_df = pd.DataFrame.from_dict(data=mappings, orient='index')
+    mappings_df = pd.DataFrame(list(mappings.items()), columns=['artist', 'class'])
 
     mappings_df.to_csv('../data/top40_mappings.csv', sep=',')
 
     print("Selected 40 paintings for each of these artists")
-    print(top40['class'].value_counts())
+    print(topn['class'].value_counts())
 
-    top40.to_csv('../data/top40.csv', sep=',', index=True, index_label='ids')
+    topn.to_csv('../data/top40.csv', sep=',', index=True, index_label='ids')
     frida.to_csv('../data/impressionists.csv', sep=',', index=True, index_label='ids')
 
 
@@ -142,6 +142,6 @@ if __name__ == '__main__':
     style = 'Impressionism'
     # read_artist_data(base_address=base_address,filepath=train_file)
     # select_impressionist_artists(base_address+style)
-    create_dataset(base_address+style)
+    create_dataset(base_address+style, artist_count=15, image_count=40)
     create_traintest('../data/top40.csv', 'top40')
     validate_traintest('../data/train_top40.csv', '../data/test_top40.csv')

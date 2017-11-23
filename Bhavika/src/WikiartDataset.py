@@ -7,7 +7,7 @@ from torch.autograd import Variable
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-import random
+from .constants import *
 
 
 class Net(nn.Module):
@@ -55,17 +55,13 @@ class WikiartDataset(data_utils.Dataset):
 
 print("Loading training data....")
 
-wiki_train = WikiartDataset(config={'wikiart_path': '../data/train_top40.csv',
-                              'images_path': '/home/bhavika/wikiart/Impressionism',
-                              'size': 360})
+wiki_train = WikiartDataset(config={'wikiart_path': train_path, 'images_path': images_path, 'size': train_size})
 
 print("Loading test data....")
-wiki_test = WikiartDataset(config={'wikiart_path': '../data/test_top40.csv',
-                              'images_path': '/home/bhavika/wikiart/Impressionism',
-                              'size': 240})
+wiki_test = WikiartDataset(config={'wikiart_path': test_path, 'images_path': images_path, 'size': test_size})
 
-wiki_train_dataloader = data_utils.DataLoader(wiki_train, batch_size=4, shuffle=True, num_workers=2)
-wiki_test_dataloader = data_utils.DataLoader(wiki_test, batch_size=4, shuffle=True, num_workers=2)
+wiki_train_dataloader = data_utils.DataLoader(wiki_train, batch_size=bs, shuffle=True, num_workers=2)
+wiki_test_dataloader = data_utils.DataLoader(wiki_test, batch_size=bs, shuffle=True, num_workers=2)
 
 
 net = Net()
@@ -80,21 +76,19 @@ def get_classes(filepath):
     data = pd.read_csv(filepath, sep=',')
     return list(data['class'].unique())
 
-classes = get_classes('../data/top40_mappings.csv')
+classes = get_classes(mappings_path)
 
 # Train
 
-for epoch in range(2):
-
+for epoch in range(100):
     print("Epoch: ", epoch)
-
     running_loss = 0.0
 
     for i, data in enumerate(wiki_train_dataloader, 0):
         inputs, labels = data['image'], data['class']
 
         # make this 4, 32, 32, 3 -> 4, 3, 32, 32
-        inputs = inputs.view(4, 3, 32, 32)
+        inputs = inputs.view(bs, 3, 32, 32)
 
         inputs, labels = Variable(inputs), Variable(labels)
         optimizer.zero_grad()
@@ -121,12 +115,12 @@ class_total = list(0. for i in range(15))
 
 for data in wiki_test_dataloader:
     images, labels = data['image'], data['class']
-    images = images.view(4, 3, 32, 32)
+    images = images.view(bs, 3, 32, 32)
     outputs = net(Variable(images))
     _, predicted = torch.max(outputs.data, 1)
     c = (predicted == labels).squeeze()
 
-    for i in range(4):
+    for i in range(bs):
         label = labels[0]
         class_correct[label] += c[i]
         class_total[label] += 1
