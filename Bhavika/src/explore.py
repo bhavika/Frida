@@ -54,14 +54,14 @@ def select_impressionist_artists(filepath):
     print("{} artists with 30 paintings or more: {}".format(len(more_than_30), more_than_30))
 
 
-def create_traintest(filepath):
+def create_traintest(filepath, target_suffix):
     data = pd.read_csv(filepath, sep=',')
     # Filter artists that appear only once - since we don't have enough train/test images for them
     counts = data['class'].value_counts()
     data = data[data['class'].isin(counts[counts > 1].index)]
     train, test = train_test_split(data, train_size=0.6, shuffle=True, stratify=data['class'])
-    train.to_csv('../data/train_full.csv', sep=',', index=False)
-    test.to_csv('../data/test_full.csv', sep=',', index=False)
+    train.to_csv('../data/train_{}.csv'.format(target_suffix), sep=',', index=False)
+    test.to_csv('../data/test_{}.csv'.format(target_suffix), sep=',', index=False)
 
     print(train.shape)
     print(test.shape)
@@ -95,11 +95,21 @@ def create_dataset(filepath):
     counts = frida['class'].value_counts()
     filter = list(counts[counts > 40].index)
 
-    # top 15 artists
+    # filter for artists that appear 40 or more times
     more_than_40 = (frida[frida['class'].isin(filter)])
     top40 = more_than_40.groupby('class').head(40)
     top40.sort_values(by='class', inplace=True, ascending=True)
     top40 = top40.head(600)
+
+    # Reindex these class labels to start with 0
+
+    labels = le.fit(top40['artist'])
+    top40['class'] = le.transform(top40['artist'])
+
+    mappings = dict(zip(le.classes_, le.transform(le.classes_)))
+    mappings_df = pd.DataFrame.from_dict(data=mappings, orient='index')
+
+    mappings_df.to_csv('../data/top40_mappings.csv', sep=',')
 
     print("Selected 40 paintings for each of these artists")
     print(top40['class'].value_counts())
@@ -108,10 +118,30 @@ def create_dataset(filepath):
     frida.to_csv('../data/impressionists.csv', sep=',', index=True, index_label='ids')
 
 
+def validate_traintest(train_path, test_path):
+    """
+    Validate train test datasets for Pytorch  
+    - class indices should start at 0
+    - no test classes should be absent in train classes
+    :return: 
+    """
+
+    train = pd.read_csv(train_path)
+    test = pd.read_csv(test_path)
+
+    train_classes = train['class'].unique()
+    test_classes = test['class'].unique()
+
+    print("Class matches in train and test: ", sorted(train_classes) == sorted(test_classes))
+    print("Train index starts with 0: ", sorted(train_classes)[0] == 0)
+    print("Test index starts with 0: ", sorted(test_classes)[0] == 0)
+
+
 if __name__ == '__main__':
     train_file = '/artist_train.csv'
     style = 'Impressionism'
     # read_artist_data(base_address=base_address,filepath=train_file)
     # select_impressionist_artists(base_address+style)
     create_dataset(base_address+style)
-    # create_traintest('../data/impressionists.csv')
+    create_traintest('../data/top40.csv', 'top40')
+    validate_traintest('../data/train_top40.csv', '../data/test_top40.csv')

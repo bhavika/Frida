@@ -7,6 +7,7 @@ from torch.autograd import Variable
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+import random
 
 
 class Net(nn.Module):
@@ -17,7 +18,7 @@ class Net(nn.Module):
         self.conv2 = nn.Conv2d(6, 16, 5)
         self.fc1 = nn.Linear(16*5*5, 120)
         self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, 4)
+        self.fc3 = nn.Linear(84, 15)
 
     def forward(self, x):
         x = self.pool(F.relu(self.conv1(x)))
@@ -54,17 +55,17 @@ class WikiartDataset(data_utils.Dataset):
 
 print("Loading training data....")
 
-wiki_train = WikiartDataset(config={'wikiart_path': '../data/train_demo.csv',
+wiki_train = WikiartDataset(config={'wikiart_path': '../data/train_top40.csv',
                               'images_path': '/home/bhavika/wikiart/Impressionism',
-                              'size': 20})
+                              'size': 360})
 
 print("Loading test data....")
-wiki_test = WikiartDataset(config={'wikiart_path': '../data/test_demo.csv',
+wiki_test = WikiartDataset(config={'wikiart_path': '../data/test_top40.csv',
                               'images_path': '/home/bhavika/wikiart/Impressionism',
-                              'size': 18})
+                              'size': 240})
 
-wiki_train_dataloader = data_utils.DataLoader(wiki_train, batch_size=1, shuffle=True, num_workers=2)
-wiki_test_dataloader = data_utils.DataLoader(wiki_test, batch_size=1, shuffle=True, num_workers=2)
+wiki_train_dataloader = data_utils.DataLoader(wiki_train, batch_size=4, shuffle=True, num_workers=2)
+wiki_test_dataloader = data_utils.DataLoader(wiki_test, batch_size=4, shuffle=True, num_workers=2)
 
 
 net = Net()
@@ -77,9 +78,9 @@ optimizer = optim.SGD(net.parameters(), lr=0.01, momentum=0.9)
 
 def get_classes(filepath):
     data = pd.read_csv(filepath, sep=',')
-    return list(data[0:1000]['class'].unique())
+    return list(data['class'].unique())
 
-classes = get_classes('../data/train_demo.csv')
+classes = get_classes('../data/top40_mappings.csv')
 
 # Train
 
@@ -93,7 +94,7 @@ for epoch in range(2):
         inputs, labels = data['image'], data['class']
 
         # make this 4, 32, 32, 3 -> 4, 3, 32, 32
-        inputs = inputs.view(1, 3, 32, 32)
+        inputs = inputs.view(4, 3, 32, 32)
 
         inputs, labels = Variable(inputs), Variable(labels)
         optimizer.zero_grad()
@@ -115,19 +116,23 @@ for epoch in range(2):
 print('Finished Training')
 
 print("Predicting on the test set... ")
-class_correct = list(0. for i in range(4))
-class_total = list(0. for i in range(4))
+class_correct = list(0. for i in range(15))
+class_total = list(0. for i in range(15))
+
 for data in wiki_test_dataloader:
     images, labels = data['image'], data['class']
-    images = images.view(1, 3, 32, 32)
+    images = images.view(4, 3, 32, 32)
     outputs = net(Variable(images))
     _, predicted = torch.max(outputs.data, 1)
     c = (predicted == labels).squeeze()
-    for i in range(1):
-        label = labels[i]
+
+    for i in range(4):
+        label = labels[0]
         class_correct[label] += c[i]
         class_total[label] += 1
 
+print(class_correct)
+print(class_total)
 for i in range(len(classes)):
     print('Accuracy of %5s : %2d %%' % (
         classes[i], 100 * class_correct[i] / class_total[i]))
