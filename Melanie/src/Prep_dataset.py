@@ -9,11 +9,6 @@ csv = constants.csv
 wiki_art = constants.wiki_art_path
 imgDir = constants.original_img_path
 imgDirResize = constants.small_img_path
-#csv = 'C:\\Users\\Melanie\\Documents\\GitHub\\Frida\\Bhavika\\data\\top40.csv'
-#wiki_art = 'C:\\Users\\Melanie\\Desktop\\WikiartData\\wikiart\\Impressionism\\'
-#imgDir = 'C:\\Users\\Melanie\\Desktop\\impress_data'
-#imgDirResize = 'C:\\Users\\Melanie\\Desktop\\impress_data_small\\'
-
 
 def resize_photo(file_source, file_dest, newSize):
     try:
@@ -36,7 +31,6 @@ def main():
         shutil.copy(join(wiki_art,i), imgDir)
       
     imageList = [f for f in os.listdir(imgDir) if isfile(join(imgDir, f))]    
-    #print (imageList)
 
     for originalImage in imageList:
         resize_photo(join(imgDir, originalImage),join(imgDirResize,originalImage), (210,140))

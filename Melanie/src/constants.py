@@ -17,8 +17,9 @@ img_count = 600
 #CNN.py
 bs = 14
 number_of_classes = 15
-epochs = 10
+epochs = 100
 model_folder = 'C:/KerasModels/Model'
 
 #PredictArtist.py
 model_path = 'C:\KerasModels\Model2017-11-24 01-23-23\ArtistIdentificationModel.h5'
+test_samples = 4
