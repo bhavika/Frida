@@ -3,6 +3,12 @@ import os
 from os import listdir
 from os.path import isfile, isdir, join, exists, getsize
 import numpy as np
+import Prep_dataset as prep
+import pandas as pd
+import constants
+
+imgDir = constants.small_img_path
+#imgDir = 'C:\\Users\\Melanie\\Desktop\\impress_data_small\\'
 
 def load_image(file_path):
     with Image.open(file_path) as image:
@@ -12,6 +18,9 @@ def load_image(file_path):
     return im_arr
 
 def getDataset(testDataSuffixList = [1, 2], predictDataSuffix = [0]):
+    artist_data = pd.read_csv(prep.csv)
+    artist_class = artist_data['class']
+    
     trainingImages = []
     trainingResult = []
     testImages = []
@@ -19,23 +28,13 @@ def getDataset(testDataSuffixList = [1, 2], predictDataSuffix = [0]):
     trainSize = 0
     testSize = 0
     predictSize = 0
-            
-    annotationFilePath = 'C:\\Users\\Melanie\\Desktop\\art_anno\\annotation.txt'
-    print("Annotation file = " + annotationFilePath)
-
-    annotationFile = open(annotationFilePath)
-    fileContents = annotationFile.readlines();
-
-    #searchTerm = fileContents[0].rstrip()
-    artistClass = int(fileContents[1].rstrip())
-    #imageCount = int(fileContents[2].rstrip())
-
-    #print("result = " + str(artistClass)) #1-baltatu, 2-sisley, 3-blanchard
-
-    imgDir = 'C:\\Users\\Melanie\\Desktop\\impress_data_small\\'
+    i=0
+    
     imageNumber = 0
+    
     imageList = [f for f in os.listdir(imgDir) if isfile(join(imgDir, f))]  
-    while imageNumber < 120:
+    while imageNumber < constants.img_count:
+        artistClass = artist_class[i]
         imageFilename = imgDir + imageList[imageNumber]
         print(imageFilename)
         if exists(imageFilename) and isfile(imageFilename):
@@ -54,10 +53,13 @@ def getDataset(testDataSuffixList = [1, 2], predictDataSuffix = [0]):
                     predictSize += 1
 
         imageNumber += 1
+        i += 1
 
 
     trainingSet = (np.asarray(trainingImages), np.asarray(trainingResult))
     testSet = (np.asarray(testImages), np.asarray(testResult))
+    print(trainingResult)
+    print(testResult)
 
     print("Loaded all images. Training size = " + str(trainSize) + ", Test size = " + str(testSize) + ", Predict size = " + str(predictSize))
 
@@ -68,38 +70,31 @@ def getDatasetForPrediction(predictDataSuffix = [0]):
     predictResult = []
     predictFilepaths = []
 
+    artist_data = pd.read_csv(prep.csv)
+    artist_class = artist_data['class']
+    i=0
 
-    annotationFilePath = 'C:\\Users\\Melanie\\Desktop\\art_anno\\annotation.txt'
-    print("Annotation file = " + annotationFilePath)
-
-    annotationFile = open(annotationFilePath)
-    fileContents = annotationFile.readlines();
-
-    searchTerm = fileContents[0].rstrip()
-    result = int(fileContents[1].rstrip())
-    imageCount = int(fileContents[2].rstrip())
-
-    print("search term = " + str(searchTerm) + ", result = " + str(result) + ", count = " + str(imageCount))
-
-    subjectImageFolder = 'C:\\Users\\Melanie\\Desktop\\impress_data_small\\'
-    imageNumber = 1
-
-    while imageNumber <= imageCount:
-        imageFilename = subjectImageFolder + str(imageNumber).zfill(4) + '.jpg'
+    imageNumber = 0
+    imageList = [f for f in os.listdir(imgDir) if isfile(join(imgDir, f))]
+    while imageNumber < constants.img_count:
+        artistClass = artist_class[i]
+        imageFilename = imgDir + imageList[imageNumber]
         if exists(imageFilename) and isfile(imageFilename):
             imageSize = getsize(imageFilename)
             if imageSize > 0:
                 imageArray = load_image(imageFilename)
                 if imageNumber % 10 in predictDataSuffix:
                     predictImages.append(imageArray)
-                    predictResult.append(result)
+                    predictResult.append(artistClass)
                     predictFilepaths.append(imageFilename)
 
         imageNumber += 1
+        i += 1
 
 
     predictSize = len(predictImages)
     predictSet = (np.asarray(predictImages), np.asarray(predictResult), predictFilepaths)
+    print(predictResult)
 
     print("Loaded all prediction images. Size = " + str(predictSize))
 

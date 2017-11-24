@@ -1,10 +1,18 @@
-import sys, os
-from io import StringIO
+import os
 from PIL import Image
-import re
-import unicodedata
-from os import listdir
 from os.path import isfile, join
+import pandas as pd
+import shutil
+import constants
+
+csv = constants.csv
+wiki_art = constants.wiki_art_path
+imgDir = constants.original_img_path
+imgDirResize = constants.small_img_path
+#csv = 'C:\\Users\\Melanie\\Documents\\GitHub\\Frida\\Bhavika\\data\\top40.csv'
+#wiki_art = 'C:\\Users\\Melanie\\Desktop\\WikiartData\\wikiart\\Impressionism\\'
+#imgDir = 'C:\\Users\\Melanie\\Desktop\\impress_data'
+#imgDirResize = 'C:\\Users\\Melanie\\Desktop\\impress_data_small\\'
 
 
 def resize_photo(file_source, file_dest, newSize):
@@ -20,27 +28,18 @@ def resize_photo(file_source, file_dest, newSize):
         print("Exception for " + str(file_dest) + " is: " + str(exception))
 
 def main():
-    imgDir = 'C:\\Users\\Melanie\\Desktop\\impress_data\\'
-    imgDirResize = 'C:\\Users\\Melanie\\Desktop\\impress_data_small\\'
+    artist_data = pd.read_csv(csv)
+    location_of_data = artist_data['location']
+    
+    i=0;
+    for i in location_of_data:
+        shutil.copy(join(wiki_art,i), imgDir)
+      
     imageList = [f for f in os.listdir(imgDir) if isfile(join(imgDir, f))]    
     #print (imageList)
-    c=1
-    b=1
-        
-    with open('C:\\Users\\Melanie\\Desktop\\art_anno\\annotation.txt', "w") as annotation_file:
-        for originalImage in imageList:
-            if c > 40 and c < 81:
-                b = 2
-            if c > 80:
-                b = 3
-            o = originalImage.split('_')
-            #print(o[0])
-            resize_photo(join(imgDir, originalImage),join(imgDirResize,originalImage), (210,140))
 
-            annotation_file.write(o[0] + "\n")
-            annotation_file.write(str(b) + "\n")
-            #print(b)
-            annotation_file.write(str(40) + "\n")
-            c=c+1
+    for originalImage in imageList:
+        resize_photo(join(imgDir, originalImage),join(imgDirResize,originalImage), (210,140))
+
 if __name__ == "__main__":
     main()
