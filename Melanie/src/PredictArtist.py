@@ -86,28 +86,6 @@ while imgNum < totalImages:
             manetCorrect += 1
         if actual == 14:
             boudinCorrect += 1
-#
-#    if prediction == 1:
-#        if actual == 1:
-#            predictCarCorrect += 1
-#            if predictCarCorrect <= 10:
-#                print("TP: " + str(z_predict[imgNum]))
-#        else:
-#            predictCarNotCorrect += 1
-#            if predictCarNotCorrect <= 10:
-#                print("FP: " + str(z_predict[imgNum]))
-#
-#    elif prediction == 0:
-#        if actual == 0:
-#            predictNotCarCorrect += 1
-#            if predictNotCarCorrect <= 10:
-#                print("TN: " + str(z_predict[imgNum]))
-#        else:
-#            predictNotCarNotCorrect += 1
-#            if predictNotCarNotCorrect <= 10:
-#                print("FN: " + str(z_predict[imgNum]))
-#    else:
-#        print("Ooops - bad prediction value")
 
     imgNum += 1
 
@@ -149,8 +127,3 @@ print("Number of Images:")
 print(totalImages)
 print("Overall Accuracy:")
 print (totalCorrect/totalImages)
-
-#print("predictCarCorrect = " + str(predictCarCorrect))
-#print("predictCarNotCorrect = " + str(predictCarNotCorrect))
-#print("predictNotCarCorrect = " + str(predictNotCarCorrect))
-#print("predictNotCarNotCorrect = " + str(predictNotCarNotCorrect))
