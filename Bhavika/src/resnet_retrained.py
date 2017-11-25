@@ -55,6 +55,10 @@ class _classifier(nn.Module):
         return y
 
 
+def save_checkpoint(state, path='../models/', filename='resnet18_re_checkpoint.pth.tar'):
+    torch.save(state, path+filename)
+
+
 def main(learning_rate, epochs=100):
     print("Loading training data....")
 
@@ -105,6 +109,8 @@ def main(learning_rate, epochs=100):
             loss.backward()
             optimizer.step()
 
+            save_checkpoint({'epoch': epoch+1, 'arch': 'resnet18_re', 'state_dict': net.state_dict(), 'model': net})
+
             # print statistics
             running_loss += loss.data[0]
             if i % 2000 == 1999:  # print every 2000 mini-batches
@@ -150,3 +156,13 @@ if __name__ == '__main__':
 
     main(learning_rate=1e-5, epochs=1)
 
+    # checkpoint = torch.load('../models/resnet18_re_checkpoint.pth.tar')
+    # net = checkpoint['state_dict']
+    # print(net)
+
+
+def load_model(path):
+    checkpoint = torch.load(path)
+    net = checkpoint['model']
+    state = checkpoint['state_dict']
+    return net, state

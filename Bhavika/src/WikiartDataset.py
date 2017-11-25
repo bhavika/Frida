@@ -100,6 +100,8 @@ def main(learning_rate, epochs=100):
             loss.backward()
             optimizer.step()
 
+            save_checkpoint({'epoch': epoch + 1, 'arch': 'CNN_2Layer', 'state_dict': net.state_dict(), 'model': net})
+
             # print statistics
             running_loss += loss.data[0]
             if i % 2000 == 1999:  # print every 2000 mini-batches
@@ -131,6 +133,10 @@ def main(learning_rate, epochs=100):
     for i in range(len(classes)):
         print('Accuracy of %5s : %2d %%' % (
             artists[i], 100 * class_correct[i] / class_total[i]))
+
+
+def save_checkpoint(state, path='../models/', filename='CNN_checkpoint.pth.tar'):
+    torch.save(state, path+filename)
 
 
 if __name__ == '__main__':

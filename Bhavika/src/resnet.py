@@ -79,6 +79,8 @@ def main(learning_rate, epochs=100):
             # forward + backward + optimize
             outputs = net(inputs)
 
+            save_checkpoint({'epoch': epoch + 1, 'arch': 'resnet18', 'state_dict': net.state_dict(), 'model': net})
+
             loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
@@ -114,6 +116,11 @@ def main(learning_rate, epochs=100):
     for i in range(len(classes)):
         print('Accuracy of %5s : %2d %%' % (
             artists[i], 100 * class_correct[i] / class_total[i]))
+
+
+def save_checkpoint(state, path='../models/', filename='resnet18_checkpoint.pth.tar'):
+    torch.save(state, path+filename)
+
 
 if __name__ == '__main__':
 
