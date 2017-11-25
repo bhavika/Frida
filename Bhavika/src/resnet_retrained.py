@@ -59,6 +59,13 @@ def save_checkpoint(state, path='../models/', filename='resnet18_re_checkpoint.p
     torch.save(state, path+filename)
 
 
+def load_model(path):
+    checkpoint = torch.load(path)
+    net = checkpoint['model']
+    state = checkpoint['state_dict']
+    return net, state
+
+
 def main(learning_rate, epochs=100):
     print("Loading training data....")
 
@@ -161,8 +168,3 @@ if __name__ == '__main__':
     # print(net)
 
 
-def load_model(path):
-    checkpoint = torch.load(path)
-    net = checkpoint['model']
-    state = checkpoint['state_dict']
-    return net, state

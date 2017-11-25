@@ -139,6 +139,13 @@ def save_checkpoint(state, path='../models/', filename='CNN_checkpoint.pth.tar')
     torch.save(state, path+filename)
 
 
+def load_model(path):
+    checkpoint = torch.load(path)
+    net = checkpoint['model']
+    state = checkpoint['state_dict']
+    return net, state
+
+
 if __name__ == '__main__':
 
     lrs = [1e-5, 1e-4, 1e-3, 1e-2, 1e-1]
