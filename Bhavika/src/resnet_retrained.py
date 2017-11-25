@@ -1,5 +1,5 @@
-import torch
 import torch.utils.data as data_utils
+import torch
 from PIL import Image
 import pandas as pd
 import numpy as np
@@ -7,28 +7,9 @@ from torch.autograd import Variable
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from constants import *
+from torchvision.models import resnet18
 import itertools
-
-
-class Net(nn.Module):
-    def __init__(self):
-        super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(3, 6, 5)
-        self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = nn.Conv2d(6, 16, 5)
-        self.fc1 = nn.Linear(16*5*5, 120)
-        self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, 15)
-
-    def forward(self, x):
-        x = self.pool(F.relu(self.conv1(x)))
-        x = self.pool(F.relu(self.conv2(x)))
-        x = x.view(-1, 16*5*5)
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        x = self.fc3(x)
-        return x
+from constants import *
 
 
 class WikiartDataset(data_utils.Dataset):
@@ -43,7 +24,7 @@ class WikiartDataset(data_utils.Dataset):
         dataset = pd.read_csv(self.dataset_path, sep=',')
         row = dataset.iloc[index]
         image = Image.open(self.images + "/"+row['location'])
-        image = image.resize((32, 32))
+        image = image.resize((224, 224))
         image = np.array(image).astype(np.float32)
         label = row['class']
 
@@ -61,6 +42,19 @@ def get_classes(filepath):
 artists, classes = get_classes(mappings_path)
 
 
+class _classifier(nn.Module):
+    def __init__(self, pretrained_model, n_classes):
+        super(_classifier, self).__init__()
+        self.features = nn.Sequential(*list(pretrained_model.children())[:-1])
+        self.classifier = nn.Sequential(nn.Linear(512, n_classes))
+
+    def forward(self, x):
+        f = self.features(x)
+        f = f.view(f.size(0), -1)
+        y = self.classifier(f)
+        return y
+
+
 def main(learning_rate, epochs=100):
     print("Loading training data....")
 
@@ -69,10 +63,16 @@ def main(learning_rate, epochs=100):
     print("Loading test data....")
     wiki_test = WikiartDataset(config={'wikiart_path': test_path, 'images_path': images_path, 'size': 300})
 
-    wiki_train_dataloader = data_utils.DataLoader(wiki_train, batch_size=bs, shuffle=True, num_workers=2, drop_last=False)
-    wiki_test_dataloader = data_utils.DataLoader(wiki_test, batch_size=bs, shuffle=True, num_workers=2, drop_last=False)
+    wiki_train_dataloader = data_utils.DataLoader(wiki_train, batch_size=bs, shuffle=True, num_workers=2,
+                                                  drop_last=False)
+    wiki_test_dataloader = data_utils.DataLoader(wiki_test, batch_size=bs, shuffle=True, num_workers=2,
+                                                 drop_last=False)
 
-    net = Net()
+    # net = _classifier(pretrained_model=resnet18(pretrained=True), n_classes=15)
+
+    pretrained_model = resnet18(pretrained=True)
+
+    net = _classifier(pretrained_model=pretrained_model, n_classes=15)
 
     # Defining the loss function
     criterion = nn.CrossEntropyLoss()
@@ -88,13 +88,18 @@ def main(learning_rate, epochs=100):
             inputs, labels = data['image'], data['class']
             batchsize = inputs.shape[0]
             # make this 4, 32, 32, 3 -> 4, 3, 32, 32
-            inputs = inputs.view(batchsize, 3, 32, 32)
+            inputs = inputs.view(batchsize, 3, 224, 224)
 
             inputs, labels = Variable(inputs), Variable(labels)
             optimizer.zero_grad()
 
             # forward + backward + optimize
             outputs = net(inputs)
+
+            # print("Outputs:")
+            # print(outputs)
+            #
+            # print(net)
 
             loss = criterion(outputs, labels)
             loss.backward()
@@ -116,7 +121,7 @@ def main(learning_rate, epochs=100):
     for data in wiki_test_dataloader:
         images, labels = data['image'], data['class']
         batchsize = images.shape[0]
-        images = images.view(batchsize, 3, 32, 32)
+        images = images.view(batchsize, 3, 224, 224)
         outputs = net(Variable(images))
         _, predicted = torch.max(outputs.data, 1)
         c = (predicted == labels).squeeze()
@@ -132,7 +137,6 @@ def main(learning_rate, epochs=100):
         print('Accuracy of %5s : %2d %%' % (
             artists[i], 100 * class_correct[i] / class_total[i]))
 
-
 if __name__ == '__main__':
 
     lrs = [1e-5, 1e-4, 1e-3, 1e-2, 1e-1]
@@ -140,6 +144,9 @@ if __name__ == '__main__':
 
     combinations = list(itertools.product(lrs, epochs))
 
-    for c in combinations:
-        print("Learning rate {}, no of epochs {}".format(c[0], c[1]))
-        main(learning_rate=c[0], epochs=c[1])
+    # for c in combinations:
+    #     print("Learning rate {}, no of epochs {}".format(c[0], c[1]))
+    #     main(learning_rate=c[0], epochs=c[1])
+
+    main(learning_rate=1e-5, epochs=1)
+
