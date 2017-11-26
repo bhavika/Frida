@@ -69,10 +69,10 @@ def load_model(path):
 def main(learning_rate, epochs=100):
     print("Loading training data....")
 
-    wiki_train = WikiartDataset(config={'wikiart_path': train_path, 'images_path': images_path, 'size': 450})
+    wiki_train = WikiartDataset(config={'wikiart_path': train_path, 'images_path': images_path, 'size': train_size})
 
     print("Loading test data....")
-    wiki_test = WikiartDataset(config={'wikiart_path': test_path, 'images_path': images_path, 'size': 300})
+    wiki_test = WikiartDataset(config={'wikiart_path': test_path, 'images_path': images_path, 'size': test_size})
 
     wiki_train_dataloader = data_utils.DataLoader(wiki_train, batch_size=bs, shuffle=True, num_workers=2,
                                                   drop_last=False)
@@ -120,7 +120,7 @@ def main(learning_rate, epochs=100):
 
             # print statistics
             running_loss += loss.data[0]
-            if i % 2000 == 1999:  # print every 2000 mini-batches
+            if i % 50 == 49:  # print every 50 mini-batches
                 print('[%d, %5d] loss: %.3f' %
                       (epoch + 1, i + 1, running_loss / 2000))
                 running_loss = 0.0
@@ -168,7 +168,7 @@ def main(learning_rate, epochs=100):
 if __name__ == '__main__':
 
     lrs = [1e-5, 1e-4, 1e-3, 1e-2, 1e-1]
-    epochs = [10, 100, 200, 300, 400, 500]
+    epochs = [100]
 
     combinations = list(itertools.product(lrs, epochs))
 

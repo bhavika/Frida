@@ -104,7 +104,7 @@ def main(learning_rate, epochs=100):
 
             # print statistics
             running_loss += loss.data[0]
-            if i % 2000 == 1999:  # print every 2000 mini-batches
+            if i % 50 == 49:  # print every 50 mini-batches
                 print('[%d, %5d] loss: %.3f' %
                       (epoch + 1, i + 1, running_loss / 2000))
                 running_loss = 0.0
@@ -162,7 +162,7 @@ def load_model(path):
 if __name__ == '__main__':
 
     lrs = [1e-5, 1e-4, 1e-3, 1e-2, 1e-1]
-    epochs = [10, 100, 200, 300, 400, 500]
+    epochs = [100]
 
     combinations = list(itertools.product(lrs, epochs))
 

@@ -142,7 +142,7 @@ if __name__ == '__main__':
     style = 'Impressionism'
     # read_artist_data(base_address=base_address,filepath=train_file)
     select_impressionist_artists(base_address+style)
-    create_dataset(base_address+style, artist_count=10, image_count=300)
-    dsname = 'top10'
+    create_dataset(base_address+style, artist_count=15, image_count=40)
+    dsname = 'top15'
     create_traintest('../data/{}.csv'.format(dsname), dsname)
     validate_traintest('../data/train_{}.csv'.format(dsname), '../data/test_{}.csv'.format(dsname))
