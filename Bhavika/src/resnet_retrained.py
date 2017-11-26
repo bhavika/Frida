@@ -10,7 +10,7 @@ import torch.optim as optim
 from torchvision.models import resnet18
 import itertools
 from constants import *
-
+import pickle
 
 class WikiartDataset(data_utils.Dataset):
     def __init__(self, config):
@@ -130,6 +130,8 @@ def main(learning_rate, epochs=100):
     print("Predicting on the test set... ")
     class_correct = list(0. for i in range(15))
     class_total = list(0. for i in range(15))
+    y_pred = []
+    y_actual = []
 
     for data in wiki_test_dataloader:
         images, labels = data['image'], data['class']
@@ -141,11 +143,24 @@ def main(learning_rate, epochs=100):
 
         for i in range(batchsize):
             label = labels[0]
+            y_actual.append(label)
             class_correct[label] += c[i]
+            y_pred.append(c[i])
             class_total[label] += 1
 
     print("Correct classes", class_correct)
     print("Total count for each class", class_total)
+
+    print("Pickling predictions and labels")
+    pkl1_name = "rnet18_re_ypred_{}_{}.pkl".format(learning_rate, epochs)
+    pkl2_name = "rnet18_re_y_actual_{}_{}.pkl".format(learning_rate, epochs)
+
+    with open(pickle_path + pkl1_name, 'wb') as f:
+        pickle.dump(y_pred, f)
+
+    with open(pickle_path + pkl2_name, 'wb') as f2:
+        pickle.dump(y_actual, f2)
+
     for i in range(len(classes)):
         print('Accuracy of %5s : %2d %%' % (
             artists[i], 100 * class_correct[i] / class_total[i]))
@@ -157,14 +172,8 @@ if __name__ == '__main__':
 
     combinations = list(itertools.product(lrs, epochs))
 
-    # for c in combinations:
-    #     print("Learning rate {}, no of epochs {}".format(c[0], c[1]))
-    #     main(learning_rate=c[0], epochs=c[1])
-
-    main(learning_rate=1e-5, epochs=1)
-
-    # checkpoint = torch.load('../models/resnet18_re_checkpoint.pth.tar')
-    # net = checkpoint['state_dict']
-    # print(net)
+    for c in combinations:
+        print("Learning rate {}, no of epochs {}".format(c[0], c[1]))
+        main(learning_rate=c[0], epochs=c[1])
 
 

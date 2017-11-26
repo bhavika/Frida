@@ -9,3 +9,5 @@ train_size = 450
 test_size = 300
 
 mappings_path = '../data/top15_mappings.csv'
+
+pickle_path = '../models/'

@@ -10,6 +10,7 @@ import torch.optim as optim
 from torchvision.models import resnet18
 import itertools
 from constants import *
+import pickle
 
 
 class WikiartDataset(data_utils.Dataset):
@@ -98,6 +99,9 @@ def main(learning_rate, epochs=100):
     class_correct = list(0. for i in range(15))
     class_total = list(0. for i in range(15))
 
+    y_pred = []
+    y_actual = []
+
     for data in wiki_test_dataloader:
         images, labels = data['image'], data['class']
         batchsize = images.shape[0]
@@ -108,8 +112,19 @@ def main(learning_rate, epochs=100):
 
         for i in range(batchsize):
             label = labels[0]
+            y_actual.append(label)
             class_correct[label] += c[i]
+            y_pred.append(c[i])
             class_total[label] += 1
+
+    pkl1_name = "resnet_ypred_{}_{}.pkl".format(learning_rate, epochs)
+    pkl2_name = "resnet_y_actual_{}_{}.pkl".format(learning_rate, epochs)
+
+    with open(pickle_path + pkl1_name, 'wb') as f:
+        pickle.dump(y_pred, f)
+
+    with open(pickle_path + pkl2_name, 'wb') as f2:
+        pickle.dump(y_actual, f2)
 
     print("Correct classes", class_correct)
     print("Total count for each class", class_total)
@@ -118,7 +133,7 @@ def main(learning_rate, epochs=100):
             artists[i], 100 * class_correct[i] / class_total[i]))
 
 
-def save_checkpoint(state, path='../models/', filename='resnet18_checkpoint.pth.tar'):
+def save_checkpoint(state, path=pickle_path, filename='resnet18_checkpoint.pth.tar'):
     torch.save(state, path+filename)
 
 
