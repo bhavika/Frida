@@ -64,10 +64,10 @@ artists, classes = get_classes(mappings_path)
 def main(learning_rate, epochs=100):
     print("Loading training data....")
 
-    wiki_train = WikiartDataset(config={'wikiart_path': train_path, 'images_path': images_path, 'size': 450})
+    wiki_train = WikiartDataset(config={'wikiart_path': train_path, 'images_path': images_path, 'size': train_size})
 
     print("Loading test data....")
-    wiki_test = WikiartDataset(config={'wikiart_path': test_path, 'images_path': images_path, 'size': 300})
+    wiki_test = WikiartDataset(config={'wikiart_path': test_path, 'images_path': images_path, 'size': test_size})
 
     wiki_train_dataloader = data_utils.DataLoader(wiki_train, batch_size=bs, shuffle=True, num_workers=2, drop_last=False)
     wiki_test_dataloader = data_utils.DataLoader(wiki_test, batch_size=bs, shuffle=True, num_workers=2, drop_last=False)
