@@ -36,7 +36,7 @@ def getDataset(testDataSuffixList = [1, 2], predictDataSuffix = [0]):
     while imageNumber < constants.img_count:
         artistClass = artist_class[i]
         imageFilename = imgDir + imageList[imageNumber]
-        print(imageFilename)
+        #print(imageFilename)
         if exists(imageFilename) and isfile(imageFilename):
             imageSize = getsize(imageFilename)
             if imageSize > 0:
@@ -79,6 +79,7 @@ def getDatasetForPrediction(predictDataSuffix = [0]):
     while imageNumber < constants.img_count:
         artistClass = artist_class[i]
         imageFilename = imgDir + imageList[imageNumber]
+        #print(imageFilename)
         if exists(imageFilename) and isfile(imageFilename):
             imageSize = getsize(imageFilename)
             if imageSize > 0:

@@ -2,3 +2,12 @@ pandas 0.20.1
 keras 2.0.6
 numpy 1.12.1
 tensorflow 1.3.0
+
+order of run
+PrepDataset.py
+CNN.py
+PredictArtist.py
+
+for random demo
+Make sure image is 210X140 in size
+Run PredictArtist_predictonly.py

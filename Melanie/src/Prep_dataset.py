@@ -33,7 +33,7 @@ def main():
     imageList = [f for f in os.listdir(imgDir) if isfile(join(imgDir, f))]    
 
     for originalImage in imageList:
-        resize_photo(join(imgDir, originalImage),join(imgDirResize,originalImage), (210,140))
+        resize_photo(join(imgDir, originalImage),join(imgDirResize,originalImage), (210, 140))
 
 if __name__ == "__main__":
     main()

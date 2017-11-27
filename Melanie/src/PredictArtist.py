@@ -12,6 +12,7 @@ import constants
 model = load_model(constants.model_path)
 print("Model has been reloaded.")
 
+
 (x_predict, y_predict, z_predict) = LoadDataset.getDatasetForPrediction([0])
 
 print("Dataset is loaded.")
@@ -44,7 +45,12 @@ totalImages = y_predict.shape[0]
 
 while imgNum < totalImages:
     actual = y_predict[imgNum]
-    #print(actual)
+    print(actual)
+    print(modelPredictions[imgNum][0], modelPredictions[imgNum][1], modelPredictions[imgNum][2],
+      modelPredictions[imgNum][3], modelPredictions[imgNum][4], modelPredictions[imgNum][5],
+      modelPredictions[imgNum][6], modelPredictions[imgNum][7], modelPredictions[imgNum][8],
+      modelPredictions[imgNum][9], modelPredictions[imgNum][10], modelPredictions[imgNum][11],
+      modelPredictions[imgNum][12], modelPredictions[imgNum][13], modelPredictions[imgNum][14])
     i=0
     max_index = 0
     while i < 14:
