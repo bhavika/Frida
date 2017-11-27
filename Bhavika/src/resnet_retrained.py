@@ -1,11 +1,8 @@
 import torch.utils.data as data_utils
 import torch
-from PIL import Image
 import pandas as pd
-import numpy as np
 from torch.autograd import Variable
 import torch.nn as nn
-import torch.nn.functional as F
 import torch.optim as optim
 from torchvision.models import resnet18
 import itertools
@@ -87,11 +84,6 @@ def main(learning_rate, epochs=100):
 
             # forward + backward + optimize
             outputs = net(inputs)
-
-            # print("Outputs:")
-            # print(outputs)
-            #
-            # print(net)
 
             loss = criterion(outputs, labels)
             loss.backward()
