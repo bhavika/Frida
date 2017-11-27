@@ -6,7 +6,7 @@ Created on Fri Nov 24 01:01:25 2017
 """
 
 #Prep_dataset.py 
-csv = 'C:\\Users\\Melanie\\Documents\\GitHub\\Frida\\Bhavika\\data\\top40.csv'
+csv = 'C:\\Users\\Melanie\\Documents\\GitHub\\Frida\\Bhavika\\data\\top15.csv'
 wiki_art_path = 'C:\\Users\\Melanie\\Desktop\\WikiartData\\wikiart\\Impressionism\\'
 original_img_path = 'C:\\Users\\Melanie\\Desktop\\impress_data'
 small_img_path = 'C:\\Users\\Melanie\\Desktop\\impress_data_small\\'

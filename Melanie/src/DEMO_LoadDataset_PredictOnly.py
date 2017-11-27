@@ -32,7 +32,7 @@ def getDatasetForPrediction(predictDataSuffix = [0]):
     
     imageNumber = 0
     imageList = [f for f in os.listdir(imgDir) if isfile(join(imgDir, f))]
-    while imageNumber < 1:
+    while imageNumber < 3:
         artistClass = -1
         imageFilename = imgDir + imageList[imageNumber]
         #print(imageFilename)

@@ -5,6 +5,7 @@ Created on Nov 5, 2017
 import LoadDataset
 from keras.models import load_model
 import constants
+from sklearn.metrics import precision_score, accuracy_score, recall_score
 
 # returns a compiled model
 # identical to the previous one
@@ -20,6 +21,8 @@ print("Dataset is loaded.")
 modelPredictions = model.predict(x_predict)
 
 print("Got predictions.")
+
+
 
 baltatuCorrect = 0
 sisleyCorrect = 0
@@ -43,6 +46,7 @@ totalCorrect = 0
 imgNum = 0
 totalImages = y_predict.shape[0]
 
+maxLabels = []
 while imgNum < totalImages:
     actual = y_predict[imgNum]
     print(actual)
@@ -58,6 +62,7 @@ while imgNum < totalImages:
         i += 1
         if modelPredictions[imgNum][i] > modelPredictions[imgNum][i-1]:
             max_index = i
+    maxLabels.append(max_index)
     #print(max_index)
     
     if actual == max_index:
@@ -96,6 +101,15 @@ while imgNum < totalImages:
     imgNum += 1
 
 print("Done.")
+#actual_vals = [0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,
+          #     9,9,9,9,10,10,10,10,11,11,11,11,12,12,12,12,13,13,13,13,14,14,14,14]
+print(maxLabels)
+print("Accuracy")
+print(accuracy_score(y_predict, maxLabels))
+print("Precision")
+print(precision_score(y_predict, maxLabels, average='weighted'))
+print("Recall")
+print(recall_score(y_predict, maxLabels, average='weighted'))
 print("Accuracy by Artist:")
 print("Baltatu:")
 print(baltatuCorrect/constants.test_samples)
