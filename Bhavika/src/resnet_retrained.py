@@ -12,7 +12,6 @@ import itertools
 from constants import *
 import pickle
 
-
 class WikiartDataset(data_utils.Dataset):
     def __init__(self, config):
         self.dataset_path = config.get('wikiart_path')
@@ -43,6 +42,30 @@ def get_classes(filepath):
 artists, classes = get_classes(mappings_path)
 
 
+class _classifier(nn.Module):
+    def __init__(self, pretrained_model, n_classes):
+        super(_classifier, self).__init__()
+        self.features = nn.Sequential(*list(pretrained_model.children())[:-1])
+        self.classifier = nn.Sequential(nn.Linear(512, n_classes))
+
+    def forward(self, x):
+        f = self.features(x)
+        f = f.view(f.size(0), -1)
+        y = self.classifier(f)
+        return y
+
+
+def save_checkpoint(state, path='../models/', filename='resnet18_re_checkpoint.pth.tar'):
+    torch.save(state, path+filename)
+
+
+def load_model(path):
+    checkpoint = torch.load(path)
+    net = checkpoint['model']
+    state = checkpoint['state_dict']
+    return net, state
+
+
 def main(learning_rate, epochs=100):
     print("Loading training data....")
 
@@ -56,7 +79,11 @@ def main(learning_rate, epochs=100):
     wiki_test_dataloader = data_utils.DataLoader(wiki_test, batch_size=bs, shuffle=True, num_workers=2,
                                                  drop_last=False)
 
-    net = resnet18(pretrained=True)
+    # net = _classifier(pretrained_model=resnet18(pretrained=True), n_classes=15)
+
+    pretrained_model = resnet18(pretrained=True)
+
+    net = _classifier(pretrained_model=pretrained_model, n_classes=15)
 
     # Defining the loss function
     criterion = nn.CrossEntropyLoss()
@@ -80,15 +107,20 @@ def main(learning_rate, epochs=100):
             # forward + backward + optimize
             outputs = net(inputs)
 
-            save_checkpoint({'epoch': epoch + 1, 'arch': 'resnet18', 'state_dict': net.state_dict(), 'model': net})
+            # print("Outputs:")
+            # print(outputs)
+            #
+            # print(net)
 
             loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
 
+            save_checkpoint({'epoch': epoch+1, 'arch': 'resnet18_re', 'state_dict': net.state_dict(), 'model': net})
+
             # print statistics
             running_loss += loss.data[0]
-            if i % 50 == 49:  # print every 2000 mini-batches
+            if i % 50 == 49:  # print every 50 mini-batches
                 print('[%d, %5d] loss: %.3f' %
                       (epoch + 1, i + 1, running_loss / 2000))
                 running_loss = 0.0
@@ -98,7 +130,6 @@ def main(learning_rate, epochs=100):
     print("Predicting on the test set... ")
     class_correct = list(0. for i in range(15))
     class_total = list(0. for i in range(15))
-
     y_pred = []
     y_actual = []
 
@@ -117,8 +148,12 @@ def main(learning_rate, epochs=100):
             y_pred.append(c[i])
             class_total[label] += 1
 
-    pkl1_name = "resnet_ypred_{}_{}.pkl".format(learning_rate, epochs)
-    pkl2_name = "resnet_y_actual_{}_{}.pkl".format(learning_rate, epochs)
+    print("Correct classes", class_correct)
+    print("Total count for each class", class_total)
+
+    print("Pickling predictions and labels")
+    pkl1_name = "rnet18_re_ypred_{}_{}.pkl".format(learning_rate, epochs)
+    pkl2_name = "rnet18_re_y_actual_{}_{}.pkl".format(learning_rate, epochs)
 
     with open(pickle_path + pkl1_name, 'wb') as f:
         pickle.dump(y_pred, f)
@@ -126,22 +161,9 @@ def main(learning_rate, epochs=100):
     with open(pickle_path + pkl2_name, 'wb') as f2:
         pickle.dump(y_actual, f2)
 
-    print("Correct classes", class_correct)
-    print("Total count for each class", class_total)
     for i in range(len(classes)):
         print('Accuracy of %5s : %2d %%' % (
             artists[i], 100 * class_correct[i] / class_total[i]))
-
-
-def save_checkpoint(state, path=pickle_path, filename='resnet18_checkpoint.pth.tar'):
-    torch.save(state, path+filename)
-
-
-def load_model(path):
-    checkpoint = torch.load(path)
-    net = checkpoint['model']
-    state = checkpoint['state_dict']
-    return net, state
 
 if __name__ == '__main__':
 

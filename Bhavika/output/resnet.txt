@@ -1,0 +1,391 @@
+/home/bhavika/anaconda3/bin/python /home/bhavika/PycharmProjects/Frida/Bhavika/src/resnet.py
+Learning rate 1e-05, no of epochs 10
+Loading training data....
+Loading test data....
+Epoch:  0
+Epoch:  1
+Epoch:  2
+Epoch:  3
+Epoch:  4
+Epoch:  5
+Epoch:  6
+Epoch:  7
+Epoch:  8
+Epoch:  9
+Finished Training
+Predicting on the test set...
+Correct classes [3.0, 3.0, 4.0, 1.0, 2.0, 2.0, 2.0, 2.0, 4.0, 2.0, 3.0, 0.0, 4.0, 2.0, 3.0]
+Total count for each class [16.0, 24.0, 36.0, 24.0, 12.0, 20.0, 12.0, 16.0, 28.0, 12.0, 20.0, 16.0, 16.0, 24.0, 24.0]
+Accuracy of adam-baltatu : 18 %
+Accuracy of alfred-sisley : 12 %
+Accuracy of antoine-blanchard : 11 %
+Accuracy of arkhip-kuindzhi :  4 %
+Accuracy of armand-guillaumin : 16 %
+Accuracy of auguste-rodin : 10 %
+Accuracy of berthe-morisot : 16 %
+Accuracy of camille-pissarro : 12 %
+Accuracy of childe-hassam : 14 %
+Accuracy of claude-monet : 16 %
+Accuracy of edgar-degas : 15 %
+Accuracy of edouard-manet :  0 %
+Accuracy of eugene-boudin : 25 %
+Accuracy of giovanni-boldini :  8 %
+Accuracy of gregoire-boonzaier : 12 %
+Learning rate 1e-05, no of epochs 100
+Loading training data....
+Loading test data....
+Epoch:  0
+Epoch:  1
+Epoch:  2
+Epoch:  3
+Epoch:  4
+Epoch:  5
+Epoch:  6
+Epoch:  7
+Epoch:  8
+Epoch:  9
+Epoch:  10
+Epoch:  11
+Epoch:  12
+Epoch:  13
+Epoch:  14
+Epoch:  15
+Epoch:  16
+Epoch:  17
+Epoch:  18
+Epoch:  19
+Epoch:  20
+Epoch:  21
+Epoch:  22
+Epoch:  23
+Epoch:  24
+Epoch:  25
+Epoch:  26
+Epoch:  27
+Epoch:  28
+Epoch:  29
+Epoch:  30
+Epoch:  31
+Epoch:  32
+Epoch:  33
+Epoch:  34
+Epoch:  35
+Epoch:  36
+Epoch:  37
+Epoch:  38
+Epoch:  39
+Epoch:  40
+Epoch:  41
+Epoch:  42
+Epoch:  43
+Epoch:  44
+Epoch:  45
+Epoch:  46
+Epoch:  47
+Epoch:  48
+Epoch:  49
+Epoch:  50
+Epoch:  51
+Epoch:  52
+Epoch:  53
+Epoch:  54
+Epoch:  55
+Epoch:  56
+Epoch:  57
+Epoch:  58
+Epoch:  59
+Epoch:  60
+Epoch:  61
+Epoch:  62
+Epoch:  63
+Epoch:  64
+Epoch:  65
+Epoch:  66
+Epoch:  67
+Epoch:  68
+Epoch:  69
+Epoch:  70
+Epoch:  71
+Epoch:  72
+Epoch:  73
+Epoch:  74
+Epoch:  75
+Epoch:  76
+Epoch:  77
+Epoch:  78
+Epoch:  79
+Epoch:  80
+Epoch:  81
+Epoch:  82
+Epoch:  83
+Epoch:  84
+Epoch:  85
+Epoch:  86
+Epoch:  87
+Epoch:  88
+Epoch:  89
+Epoch:  90
+Epoch:  91
+Epoch:  92
+Epoch:  93
+Epoch:  94
+Epoch:  95
+Epoch:  96
+Epoch:  97
+Epoch:  98
+Epoch:  99
+Finished Training
+Predicting on the test set...
+Correct classes [7.0, 11.0, 10.0, 5.0, 7.0, 2.0, 6.0, 6.0, 4.0, 4.0, 3.0, 5.0, 6.0, 3.0, 5.0]
+Total count for each class [28.0, 24.0, 32.0, 20.0, 32.0, 8.0, 20.0, 16.0, 16.0, 16.0, 20.0, 28.0, 12.0, 12.0, 16.0]
+Accuracy of adam-baltatu : 25 %
+Accuracy of alfred-sisley : 45 %
+Accuracy of antoine-blanchard : 31 %
+Accuracy of arkhip-kuindzhi : 25 %
+Accuracy of armand-guillaumin : 21 %
+Accuracy of auguste-rodin : 25 %
+Accuracy of berthe-morisot : 30 %
+Accuracy of camille-pissarro : 37 %
+Accuracy of childe-hassam : 25 %
+Accuracy of claude-monet : 25 %
+Accuracy of edgar-degas : 15 %
+Accuracy of edouard-manet : 17 %
+Accuracy of eugene-boudin : 50 %
+Accuracy of giovanni-boldini : 25 %
+Accuracy of gregoire-boonzaier : 31 %
+Learning rate 1e-05, no of epochs 200
+Loading training data....
+Loading test data....
+Epoch:  0
+Epoch:  1
+Epoch:  2
+Epoch:  3
+Epoch:  4
+Epoch:  5
+Epoch:  6
+Epoch:  7
+Epoch:  8
+Epoch:  9
+Epoch:  10
+Epoch:  11
+Epoch:  12
+Epoch:  13
+Epoch:  14
+Epoch:  15
+Epoch:  16
+Epoch:  17
+Epoch:  18
+Epoch:  19
+Epoch:  20
+Epoch:  21
+Epoch:  22
+Epoch:  23
+Epoch:  24
+Epoch:  25
+Epoch:  26
+Epoch:  27
+Epoch:  28
+Epoch:  29
+Epoch:  30
+Epoch:  31
+Epoch:  32
+Epoch:  33
+Epoch:  34
+Epoch:  35
+Epoch:  36
+Epoch:  37
+Epoch:  38
+Epoch:  39
+Epoch:  40
+Epoch:  41
+Epoch:  42
+Epoch:  43
+Epoch:  44
+Epoch:  45
+Epoch:  46
+Epoch:  47
+Epoch:  48
+Epoch:  49
+Epoch:  50
+Epoch:  51
+Epoch:  52
+Epoch:  53
+Epoch:  54
+Epoch:  55
+Epoch:  56
+Epoch:  57
+Epoch:  58
+Epoch:  59
+Epoch:  60
+Epoch:  61
+Epoch:  62
+Epoch:  63
+Epoch:  64
+Epoch:  65
+Epoch:  66
+Epoch:  67
+Epoch:  68
+Epoch:  69
+Epoch:  70
+Epoch:  71
+Epoch:  72
+Epoch:  73
+Epoch:  74
+Epoch:  75
+Epoch:  76
+Epoch:  77
+Epoch:  78
+Epoch:  79
+Epoch:  80
+Epoch:  81
+Epoch:  82
+Epoch:  83
+Epoch:  84
+Epoch:  85
+Epoch:  86
+Epoch:  87
+Epoch:  88
+Epoch:  89
+Epoch:  90
+Epoch:  91
+Epoch:  92
+Epoch:  93
+Epoch:  94
+Epoch:  95
+Epoch:  96
+Epoch:  97
+Epoch:  98
+Epoch:  99
+Epoch:  100
+Epoch:  101
+Epoch:  102
+Epoch:  103
+Epoch:  104
+Epoch:  105
+Epoch:  106
+Epoch:  107
+Epoch:  108
+Epoch:  109
+Epoch:  110
+Epoch:  111
+Epoch:  112
+Epoch:  113
+Epoch:  114
+Epoch:  115
+Epoch:  116
+Epoch:  117
+Epoch:  118
+Epoch:  119
+Epoch:  120
+Epoch:  121
+Epoch:  122
+Epoch:  123
+Epoch:  124
+Epoch:  125
+Epoch:  126
+Epoch:  127
+Epoch:  128
+Epoch:  129
+Epoch:  130
+Epoch:  131
+Epoch:  132
+Epoch:  133
+Epoch:  134
+Epoch:  135
+Epoch:  136
+Epoch:  137
+Epoch:  138
+Epoch:  139
+Epoch:  140
+Epoch:  141
+Epoch:  142
+Epoch:  143
+Epoch:  144
+Epoch:  145
+Epoch:  146
+Epoch:  147
+Epoch:  148
+Epoch:  149
+Epoch:  150
+Epoch:  151
+Epoch:  152
+Epoch:  153
+Epoch:  154
+Epoch:  155
+Epoch:  156
+Epoch:  157
+Epoch:  158
+Epoch:  159
+Epoch:  160
+Epoch:  161
+Epoch:  162
+Epoch:  163
+Epoch:  164
+Epoch:  165
+Epoch:  166
+Epoch:  167
+Epoch:  168
+Epoch:  169
+Epoch:  170
+Epoch:  171
+Epoch:  172
+Epoch:  173
+Epoch:  174
+Epoch:  175
+Epoch:  176
+Epoch:  177
+Epoch:  178
+Epoch:  179
+Epoch:  180
+Epoch:  181
+Epoch:  182
+Epoch:  183
+Epoch:  184
+Epoch:  185
+Epoch:  186
+Epoch:  187
+Epoch:  188
+Epoch:  189
+Epoch:  190
+Epoch:  191
+Epoch:  192
+Epoch:  193
+Epoch:  194
+Epoch:  195
+Epoch:  196
+Epoch:  197
+Epoch:  198
+Epoch:  199
+Finished Training
+Predicting on the test set...
+Correct classes [5.0, 2.0, 4.0, 8.0, 8.0, 9.0, 4.0, 4.0, 4.0, 11.0, 5.0, 3.0, 6.0, 5.0, 4.0]
+Total count for each class [16.0, 12.0, 16.0, 20.0, 28.0, 28.0, 16.0, 8.0, 20.0, 32.0, 24.0, 24.0, 20.0, 20.0, 16.0]
+Accuracy of adam-baltatu : 31 %
+Accuracy of alfred-sisley : 16 %
+Accuracy of antoine-blanchard : 25 %
+Accuracy of arkhip-kuindzhi : 40 %
+Accuracy of armand-guillaumin : 28 %
+Accuracy of auguste-rodin : 32 %
+Accuracy of berthe-morisot : 25 %
+Accuracy of camille-pissarro : 50 %
+Accuracy of childe-hassam : 20 %
+Accuracy of claude-monet : 34 %
+Accuracy of edgar-degas : 20 %
+Accuracy of edouard-manet : 12 %
+Accuracy of eugene-boudin : 30 %
+Accuracy of giovanni-boldini : 25 %
+Accuracy of gregoire-boonzaier : 25 %
+Learning rate 1e-05, no of epochs 300
+Loading training data....
+Loading test data....
+Epoch:  0
+Epoch:  1
+Epoch:  2
+Epoch:  3
+Epoch:  4
+Epoch:  5
+Epoch:  6
+Epoch:  7
+Epoch:  8
+Epoch:  9
+Epoch:  10

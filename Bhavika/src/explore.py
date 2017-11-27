@@ -48,10 +48,10 @@ def select_impressionist_artists(filepath):
     print("Paintings by each artist:", artist_paintings_count)
 
     more_than_40 = {k: v for k,v in artist_paintings_count.items() if v >= 40}
-    more_than_30 = {k: v for k, v in artist_paintings_count.items() if v >= 30}
+    more_than_300 = {k: v for k, v in artist_paintings_count.items() if v >= 300}
 
     print("{} artists with 40 paintings or more: {}".format(len(more_than_40), more_than_40))
-    print("{} artists with 30 paintings or more: {}".format(len(more_than_30), more_than_30))
+    print("{} artists with 300 paintings or more: {}".format(len(more_than_300), more_than_300))
 
 
 def create_traintest(filepath, target_suffix):
@@ -109,12 +109,12 @@ def create_dataset(filepath, artist_count, image_count):
     mappings = dict(zip(le.classes_, le.transform(le.classes_)))
     mappings_df = pd.DataFrame(list(mappings.items()), columns=['artist', 'class'])
 
-    mappings_df.to_csv('../data/top40_mappings.csv', sep=',')
+    mappings_df.to_csv('../data/top{}_mappings.csv'.format(artist_count), sep=',')
 
-    print("Selected 40 paintings for each of these artists")
+    print("Selected {} paintings for each of the {} artists".format(image_count, artist_count))
     print(topn['class'].value_counts())
 
-    topn.to_csv('../data/top40.csv', sep=',', index=True, index_label='ids')
+    topn.to_csv('../data/top{}.csv'.format(artist_count), sep=',', index=True, index_label='ids')
     frida.to_csv('../data/impressionists.csv', sep=',', index=True, index_label='ids')
 
 
@@ -141,7 +141,8 @@ if __name__ == '__main__':
     train_file = '/artist_train.csv'
     style = 'Impressionism'
     # read_artist_data(base_address=base_address,filepath=train_file)
-    # select_impressionist_artists(base_address+style)
+    select_impressionist_artists(base_address+style)
     create_dataset(base_address+style, artist_count=15, image_count=40)
-    create_traintest('../data/top40.csv', 'top40')
-    validate_traintest('../data/train_top40.csv', '../data/test_top40.csv')
+    dsname = 'top15'
+    create_traintest('../data/{}.csv'.format(dsname), dsname)
+    validate_traintest('../data/train_{}.csv'.format(dsname), '../data/test_{}.csv'.format(dsname))
