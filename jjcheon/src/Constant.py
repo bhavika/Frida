@@ -16,11 +16,38 @@ if possible, top40_location_and_top40_file_exploer keep consistency with style, 
 
 """
 
-base_address = '/home/jay/PycharmProjects/688-project/wikiart/'
-#style = 'Impressionism-3a-3p/'
-#train_file = 'impressionists-3a-3p.csv'
-style = 'Impressionism/'
+base_address = 'c:\users\jjche\PycharmProjects\\688-term\wikiart\\'
+style = 'Impressionism\\'
 train_file = 'top40.csv'
+
+
+
+###Normal-Demo
+#
+normal_demo_csv_file = 'NormalTestDataset.csv'
+saved_trained_file = 'finalized_model_random_forest.sav'
+base_csv_file_location = 'c:\users\jjche\PycharmProjects\\688-term\\'
+loaded_model_filename = base_csv_file_location
+
+
+
+
+###Random-Demo
+#randome image
+image = 'landscape.jpg'
+saved_trained_file = 'finalized_model_random_forest.sav'
+base_image_file_location = 'c:\users\jjche\PycharmProjects\\688-term\\'
+loaded_model_filename = base_image_file_location+saved_trained_file
+absolute_link  = base_image_file_location+image
+
+
+
+
+#style = 'Impressionism/'
+#train_file = 'top40.csv'
+
+
+
 mapping_file = 'author_mapping.csv'
 style_explorer = 'Impressionism'
 train_file_explorer = '/artist_train.csv'
