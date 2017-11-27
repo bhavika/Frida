@@ -7,7 +7,7 @@ import numpy as np
 # Via http://stackoverflow.com/a/3498247
 from scipy.misc import toimage, fromimage
 
-from Constant import base_address
+from Constant import *
 
 
 def find_brightness( im_file ):
@@ -50,7 +50,7 @@ def PIL2array(img):
                     np.uint8).reshape(img.size[1], img.size[0], 3)
 
 def find_similiar_image(author_class,input_image):
-    paintings_by_artist = pd.read_csv(base_address + 'author_image_mapping.csv', names=['class', 'absolute_path'], header=0)
+    paintings_by_artist = pd.read_csv(base_csv_file_location + 'author_image_mapping.csv', names=['class', 'absolute_path'], header=0)
     error =[]
     min_index =0
     mse_value=100000000000000.0

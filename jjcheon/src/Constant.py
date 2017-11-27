@@ -16,8 +16,9 @@ if possible, top40_location_and_top40_file_exploer keep consistency with style, 
 
 """
 
-base_address = 'c:\users\jjche\PycharmProjects\\688-term\wikiart\\'
-style = 'Impressionism\\'
+# base_address = 'c:\users\jjche\PycharmProjects\\688-term\wikiart\\'
+base_address = '/home/bhavika/wikiart/'
+style = 'Impressionism/'
 train_file = 'top40.csv'
 
 
@@ -26,7 +27,8 @@ train_file = 'top40.csv'
 #
 normal_demo_csv_file = 'NormalTestDataset.csv'
 saved_trained_file = 'finalized_model_random_forest.sav'
-base_csv_file_location = 'c:\users\jjche\PycharmProjects\\688-term\\'
+base_csv_file_location = '/home/bhavika/Frida/jjcheon/src/'
+# location to save models
 loaded_model_filename = base_csv_file_location
 
 
@@ -36,7 +38,7 @@ loaded_model_filename = base_csv_file_location
 #randome image
 image = 'landscape.jpg'
 saved_trained_file = 'finalized_model_random_forest.sav'
-base_image_file_location = 'c:\users\jjche\PycharmProjects\\688-term\\'
+base_image_file_location = '/home/bhavika/Frida/jjcheon/src/'
 loaded_model_filename = base_image_file_location+saved_trained_file
 absolute_link  = base_image_file_location+image
 

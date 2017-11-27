@@ -14,6 +14,7 @@ from Constant import base_address, style,normal_demo_csv_file,mapping_file, base
 import numpy as np
 
 filepath = base_address
+
 unique_artists = set()
 unique_link = list()
 mapping = dict()
@@ -22,10 +23,10 @@ print("Load the dataset from csv file")
 print("")
 
 #file categories are ids,location,artist,class
-paintings_by_artist = pd.read_csv(filepath+normal_demo_csv_file, names=['ids','location','artist', 'class'], header=0)
+paintings_by_artist = pd.read_csv(base_csv_file_location+normal_demo_csv_file, names=['ids','location','artist', 'class'], header=0)
 paintings_by_artist['absolute_location'] = base_address +style+ paintings_by_artist['location']
+mapping_artists = pd.read_csv(base_csv_file_location+mapping_file, names=['class','artist'], header=0)
 
-mapping_artists= pd.read_csv(filepath+mapping_file, names=['class','artist'], header=0)
 
 for i in range(mapping_artists.shape[0]):
     label= mapping_artists.iloc[i]['class']
@@ -49,8 +50,6 @@ for i in range(paintings_by_artist.shape[0]):
         actual_image_count += 1
         unique_link.append(link)
 
-
-
 feature= [[0 for j in range(cols_count)] for i in range(actual_image_count)]
 label_data = [0 for i in range(actual_image_count)]
 image_data= []
@@ -61,11 +60,14 @@ print()
 print("Features are brightness,blur,edge,contour,emboss,smooth, and so on")
 print()
 
+
+
 #read records one by one
 #for i in range(paintings_by_artist.shape[0]):
 for i in range(len(list(unique_link))):
     #link = paintings_by_artist.iloc[i]['absolute_location']
     link = list(unique_link)[i]
+
     #paintings_by_artist = paintings_by_artist.sort_values('class')
     global img
     #print label_data
@@ -112,13 +114,16 @@ print()
 #    print("y_test",mapping.get(y_test[i]))
 
 start_time= time.time()
-filename = './wikiart/finalized_model_random_forest.sav'
+filename = './finalized_model_random_forest.sav'
 filename = base_csv_file_location+saved_trained_file
 #loaded_model = pickle.load(open(filename, 'rb'))
 from sklearn.externals import joblib
 loaded_model = joblib.load(filename)
 
+print(feature)
+
 x_predict = loaded_model.predict(feature)
+
 #result = loaded_model.score(X_test, y_test)
 #result = loaded_model.score(numpy.array(x_predict).reshape(-1,1), numpy.array( y_test).reshape(-1,1))
 #print(result)

@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from util_image import find_blur_value, find_edge_enhance, find_smooth_more, find_brightness, find_edge, find_contour, \
     find_emboss, find_edge_enhance_more, find_detail, find_smooth, find_similiar_image, find_blur_value2
 from scipy.stats import randint as sp_randint
-from Constant import base_address, train_file,mapping_file, absolute_link, loaded_model_filename
+from Constant import *
 import numpy as np
 
 filepath = base_address
@@ -23,7 +23,7 @@ print("")
 #paintings_by_artist = pd.read_csv(filepath+train_file, names=['ids','location','artist', 'class'], header=0)
 #paintings_by_artist['absolute_location'] = base_address +random_style+ paintings_by_artist['location']
 
-mapping_artists= pd.read_csv(filepath+mapping_file, names=['class','artist'], header=0)
+mapping_artists= pd.read_csv(base_csv_file_location+mapping_file, names=['class','artist'], header=0)
 
 for i in range(mapping_artists.shape[0]):
     label= mapping_artists.iloc[i]['class']
