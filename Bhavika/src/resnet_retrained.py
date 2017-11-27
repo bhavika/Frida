@@ -1,38 +1,14 @@
 import torch.utils.data as data_utils
 import torch
-from PIL import Image
 import pandas as pd
-import numpy as np
 from torch.autograd import Variable
 import torch.nn as nn
-import torch.nn.functional as F
 import torch.optim as optim
 from torchvision.models import resnet18
 import itertools
 from constants import *
 import pickle
-
-class WikiartDataset(data_utils.Dataset):
-    def __init__(self, config):
-        self.dataset_path = config.get('wikiart_path')
-        self.images = config.get('images_path')
-        self.num_samples = config.get('size')
-        self.ids_list = list(range(1, self.num_samples+1))
-        # random.shuffle(self.ids_list)
-
-    def __getitem__(self, index):
-        dataset = pd.read_csv(self.dataset_path, sep=',')
-        row = dataset.iloc[index]
-        image = Image.open(self.images + "/"+row['location'])
-        image = image.resize((224, 224))
-        image = np.array(image).astype(np.float32)
-        label = row['class']
-
-        sample = {'image': torch.from_numpy(image), 'class': label}
-        return sample
-
-    def __len__(self):
-        return len(self.ids_list)
+from wikiart import WikiartDataset
 
 
 def get_classes(filepath):
@@ -69,10 +45,12 @@ def load_model(path):
 def main(learning_rate, epochs=100):
     print("Loading training data....")
 
-    wiki_train = WikiartDataset(config={'wikiart_path': train_path, 'images_path': images_path, 'size': train_size})
+    wiki_train = WikiartDataset(config={'wikiart_path': train_path, 'images_path': images_path, 'size': train_size,
+                                        'arch': 'resnet'})
 
     print("Loading test data....")
-    wiki_test = WikiartDataset(config={'wikiart_path': test_path, 'images_path': images_path, 'size': test_size})
+    wiki_test = WikiartDataset(config={'wikiart_path': test_path, 'images_path': images_path, 'size': test_size,
+                                       'arch': 'resnet'})
 
     wiki_train_dataloader = data_utils.DataLoader(wiki_train, batch_size=bs, shuffle=True, num_workers=2,
                                                   drop_last=False)
@@ -107,16 +85,9 @@ def main(learning_rate, epochs=100):
             # forward + backward + optimize
             outputs = net(inputs)
 
-            # print("Outputs:")
-            # print(outputs)
-            #
-            # print(net)
-
             loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
-
-            save_checkpoint({'epoch': epoch+1, 'arch': 'resnet18_re', 'state_dict': net.state_dict(), 'model': net})
 
             # print statistics
             running_loss += loss.data[0]
@@ -126,6 +97,7 @@ def main(learning_rate, epochs=100):
                 running_loss = 0.0
 
     print('Finished Training')
+    save_checkpoint({'epoch': epochs, 'arch': 'resnet18_re', 'state_dict': net.state_dict(), 'model': net})
 
     print("Predicting on the test set... ")
     class_correct = list(0. for i in range(15))
@@ -172,8 +144,8 @@ if __name__ == '__main__':
 
     combinations = list(itertools.product(lrs, epochs))
 
-    for c in combinations:
-        print("Learning rate {}, no of epochs {}".format(c[0], c[1]))
-        main(learning_rate=c[0], epochs=c[1])
+    # for c in combinations:
+    #     print("Learning rate {}, no of epochs {}".format(c[0], c[1]))
+    #     main(learning_rate=c[0], epochs=c[1])
 
-
+    main(learning_rate=0.001, epochs=100)

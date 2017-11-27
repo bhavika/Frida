@@ -2,10 +2,10 @@ import pandas as pd
 from PIL import Image
 import os
 from sklearn.preprocessing import LabelEncoder
-import matplotlib.pyplot as plt
 from pathlib import Path
-
-base_address = '/Users/User/PycharmProjects/PR-termProject/wikiart/'
+import numpy as np
+from Constant import base_address
+#base_address = '/Users/User/PycharmProjects/PR-termProject/wikiart/'
 
 
 def read_artist_data(base_address, filepath):
@@ -97,6 +97,40 @@ def create_dataset(filepath):
     frida['class'] = le.transform(frida['artist'])
     frida.to_csv('./wikiart/impressionists.csv', sep=',', index=True, index_label='ids')
 
+
+def make_author_mapping_file(filepath, train_file):
+    paintings_by_artist = pd.read_csv(filepath + train_file, names=['ids', 'location', 'artist', 'class'], header=0)
+    #print(paintings_by_artist)
+    #print(paintings_by_artist['class'], paintings_by_artist['artist'])
+    data = []
+    data2 = []
+    mapping = pd.DataFrame(np.array(paintings_by_artist['class']).reshape(-1,1))
+    for i in range(paintings_by_artist.shape[0]):
+        #mapping.add(mapping, paintings_by_artist.iloc[i]['artist'], fill_value=0)
+         data.append(paintings_by_artist.iloc[i]['class'])
+         data2.append(paintings_by_artist.iloc[i]['artist'])
+#    mapping.append(mapping,data, data2)
+    import csv
+    with open (base_address+'author_mapping.csv','w') as csvfile:
+        fieldnames =['class', 'artist']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for i in range(paintings_by_artist.shape[0]):
+            writer.writerow({'class' : paintings_by_artist.iloc[i]['class'], 'artist':paintings_by_artist.iloc[i]['artist']})
+
+def make_author_image_mapping(data, link):
+    import csv
+    with open(base_address+'author_image_mapping.csv', 'w') as csvfile:
+        fieldnames = ['class', 'absolute_path']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for i in range(len(data)):
+            writer.writerow({'class': data[i],
+                             'absolute_path': link[i]})
+
+
+
+#def make_csv()
 
 if __name__ == '__main__':
     train_file = '/artist_train.csv'
