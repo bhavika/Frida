@@ -11,6 +11,7 @@ from constants import *
 import itertools
 import pickle
 
+
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
