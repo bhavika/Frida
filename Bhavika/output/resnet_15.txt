@@ -1,0 +1,1113 @@
+/home/bhavika/anaconda3/envs/fastai/bin/python /home/bhavika/PycharmProjects/Frida/Bhavika/src/resnet.py
+Learning rate 1e-05, no of epochs 100
+Loading training data....
+Loading test data....
+Epoch:  0
+[1,    50] loss: 0.221
+Epoch:  1
+[2,    50] loss: 0.206
+Epoch:  2
+[3,    50] loss: 0.196
+Epoch:  3
+[4,    50] loss: 0.183
+Epoch:  4
+[5,    50] loss: 0.171
+Epoch:  5
+[6,    50] loss: 0.161
+Epoch:  6
+[7,    50] loss: 0.150
+Epoch:  7
+[8,    50] loss: 0.138
+Epoch:  8
+[9,    50] loss: 0.128
+Epoch:  9
+[10,    50] loss: 0.131
+Epoch:  10
+[11,    50] loss: 0.116
+Epoch:  11
+[12,    50] loss: 0.101
+Epoch:  12
+[13,    50] loss: 0.102
+Epoch:  13
+[14,    50] loss: 0.089
+Epoch:  14
+[15,    50] loss: 0.085
+Epoch:  15
+[16,    50] loss: 0.083
+Epoch:  16
+[17,    50] loss: 0.079
+Epoch:  17
+[18,    50] loss: 0.070
+Epoch:  18
+[19,    50] loss: 0.069
+Epoch:  19
+[20,    50] loss: 0.062
+Epoch:  20
+[21,    50] loss: 0.059
+Epoch:  21
+[22,    50] loss: 0.055
+Epoch:  22
+[23,    50] loss: 0.053
+Epoch:  23
+[24,    50] loss: 0.050
+Epoch:  24
+[25,    50] loss: 0.047
+Epoch:  25
+[26,    50] loss: 0.049
+Epoch:  26
+[27,    50] loss: 0.042
+Epoch:  27
+[28,    50] loss: 0.040
+Epoch:  28
+[29,    50] loss: 0.037
+Epoch:  29
+[30,    50] loss: 0.034
+Epoch:  30
+[31,    50] loss: 0.036
+Epoch:  31
+[32,    50] loss: 0.036
+Epoch:  32
+[33,    50] loss: 0.034
+Epoch:  33
+[34,    50] loss: 0.033
+Epoch:  34
+[35,    50] loss: 0.028
+Epoch:  35
+[36,    50] loss: 0.028
+Epoch:  36
+[37,    50] loss: 0.029
+Epoch:  37
+[38,    50] loss: 0.026
+Epoch:  38
+[39,    50] loss: 0.027
+Epoch:  39
+[40,    50] loss: 0.027
+Epoch:  40
+[41,    50] loss: 0.026
+Epoch:  41
+[42,    50] loss: 0.028
+Epoch:  42
+[43,    50] loss: 0.022
+Epoch:  43
+[44,    50] loss: 0.027
+Epoch:  44
+[45,    50] loss: 0.026
+Epoch:  45
+[46,    50] loss: 0.022
+Epoch:  46
+[47,    50] loss: 0.021
+Epoch:  47
+[48,    50] loss: 0.022
+Epoch:  48
+[49,    50] loss: 0.021
+Epoch:  49
+[50,    50] loss: 0.023
+Epoch:  50
+[51,    50] loss: 0.020
+Epoch:  51
+[52,    50] loss: 0.021
+Epoch:  52
+[53,    50] loss: 0.020
+Epoch:  53
+[54,    50] loss: 0.018
+Epoch:  54
+[55,    50] loss: 0.020
+Epoch:  55
+[56,    50] loss: 0.016
+Epoch:  56
+[57,    50] loss: 0.016
+Epoch:  57
+[58,    50] loss: 0.018
+Epoch:  58
+[59,    50] loss: 0.014
+Epoch:  59
+[60,    50] loss: 0.018
+Epoch:  60
+[61,    50] loss: 0.015
+Epoch:  61
+[62,    50] loss: 0.016
+Epoch:  62
+[63,    50] loss: 0.012
+Epoch:  63
+[64,    50] loss: 0.014
+Epoch:  64
+[65,    50] loss: 0.016
+Epoch:  65
+[66,    50] loss: 0.013
+Epoch:  66
+[67,    50] loss: 0.014
+Epoch:  67
+[68,    50] loss: 0.015
+Epoch:  68
+[69,    50] loss: 0.014
+Epoch:  69
+[70,    50] loss: 0.012
+Epoch:  70
+[71,    50] loss: 0.013
+Epoch:  71
+[72,    50] loss: 0.015
+Epoch:  72
+[73,    50] loss: 0.014
+Epoch:  73
+[74,    50] loss: 0.015
+Epoch:  74
+[75,    50] loss: 0.012
+Epoch:  75
+[76,    50] loss: 0.012
+Epoch:  76
+[77,    50] loss: 0.011
+Epoch:  77
+[78,    50] loss: 0.010
+Epoch:  78
+[79,    50] loss: 0.011
+Epoch:  79
+[80,    50] loss: 0.012
+Epoch:  80
+[81,    50] loss: 0.012
+Epoch:  81
+[82,    50] loss: 0.013
+Epoch:  82
+[83,    50] loss: 0.013
+Epoch:  83
+[84,    50] loss: 0.010
+Epoch:  84
+[85,    50] loss: 0.010
+Epoch:  85
+[86,    50] loss: 0.013
+Epoch:  86
+[87,    50] loss: 0.009
+Epoch:  87
+[88,    50] loss: 0.008
+Epoch:  88
+[89,    50] loss: 0.012
+Epoch:  89
+[90,    50] loss: 0.010
+Epoch:  90
+[91,    50] loss: 0.010
+Epoch:  91
+[92,    50] loss: 0.009
+Epoch:  92
+[93,    50] loss: 0.008
+Epoch:  93
+[94,    50] loss: 0.010
+Epoch:  94
+[95,    50] loss: 0.009
+Epoch:  95
+[96,    50] loss: 0.008
+Epoch:  96
+[97,    50] loss: 0.010
+Epoch:  97
+[98,    50] loss: 0.010
+Epoch:  98
+[99,    50] loss: 0.008
+Epoch:  99
+[100,    50] loss: 0.007
+Finished Training
+Predicting on the test set...
+Correct classes [5.0, 4.0, 4.0, 4.0, 4.0, 7.0, 1.0, 0.0, 6.0, 8.0, 10.0, 1.0, 4.0, 4.0, 3.0]
+Total count for each class [20.0, 12.0, 12.0, 20.0, 12.0, 16.0, 4.0, 4.0, 28.0, 24.0, 32.0, 4.0, 20.0, 20.0, 12.0]
+Accuracy of adam-baltatu : 25 %
+Accuracy of alfred-sisley : 33 %
+Accuracy of antoine-blanchard : 33 %
+Accuracy of arkhip-kuindzhi : 20 %
+Accuracy of armand-guillaumin : 33 %
+Accuracy of auguste-rodin : 43 %
+Accuracy of berthe-morisot : 25 %
+Accuracy of camille-pissarro :  0 %
+Accuracy of childe-hassam : 21 %
+Accuracy of claude-monet : 33 %
+Accuracy of constantin-artachino : 31 %
+Accuracy of cornelis-vreedenburgh : 25 %
+Accuracy of edgar-degas : 20 %
+Accuracy of edouard-manet : 20 %
+Accuracy of eugene-boudin : 25 %
+Learning rate 0.0001, no of epochs 100
+Loading training data....
+Loading test data....
+Epoch:  0
+[1,    50] loss: 0.204
+Epoch:  1
+[2,    50] loss: 0.107
+Epoch:  2
+[3,    50] loss: 0.064
+Epoch:  3
+[4,    50] loss: 0.044
+Epoch:  4
+[5,    50] loss: 0.032
+Epoch:  5
+[6,    50] loss: 0.027
+Epoch:  6
+[7,    50] loss: 0.021
+Epoch:  7
+[8,    50] loss: 0.018
+Epoch:  8
+[9,    50] loss: 0.014
+Epoch:  9
+[10,    50] loss: 0.014
+Epoch:  10
+[11,    50] loss: 0.009
+Epoch:  11
+[12,    50] loss: 0.012
+Epoch:  12
+[13,    50] loss: 0.008
+Epoch:  13
+[14,    50] loss: 0.009
+Epoch:  14
+[15,    50] loss: 0.007
+Epoch:  15
+[16,    50] loss: 0.007
+Epoch:  16
+[17,    50] loss: 0.006
+Epoch:  17
+[18,    50] loss: 0.004
+Epoch:  18
+[19,    50] loss: 0.008
+Epoch:  19
+[20,    50] loss: 0.005
+Epoch:  20
+[21,    50] loss: 0.005
+Epoch:  21
+[22,    50] loss: 0.005
+Epoch:  22
+[23,    50] loss: 0.004
+Epoch:  23
+[24,    50] loss: 0.005
+Epoch:  24
+[25,    50] loss: 0.004
+Epoch:  25
+[26,    50] loss: 0.004
+Epoch:  26
+[27,    50] loss: 0.003
+Epoch:  27
+[28,    50] loss: 0.004
+Epoch:  28
+[29,    50] loss: 0.003
+Epoch:  29
+[30,    50] loss: 0.004
+Epoch:  30
+[31,    50] loss: 0.004
+Epoch:  31
+[32,    50] loss: 0.003
+Epoch:  32
+[33,    50] loss: 0.003
+Epoch:  33
+[34,    50] loss: 0.003
+Epoch:  34
+[35,    50] loss: 0.003
+Epoch:  35
+[36,    50] loss: 0.003
+Epoch:  36
+[37,    50] loss: 0.004
+Epoch:  37
+[38,    50] loss: 0.002
+Epoch:  38
+[39,    50] loss: 0.003
+Epoch:  39
+[40,    50] loss: 0.002
+Epoch:  40
+[41,    50] loss: 0.002
+Epoch:  41
+[42,    50] loss: 0.002
+Epoch:  42
+[43,    50] loss: 0.003
+Epoch:  43
+[44,    50] loss: 0.003
+Epoch:  44
+[45,    50] loss: 0.002
+Epoch:  45
+[46,    50] loss: 0.003
+Epoch:  46
+[47,    50] loss: 0.001
+Epoch:  47
+[48,    50] loss: 0.002
+Epoch:  48
+[49,    50] loss: 0.002
+Epoch:  49
+[50,    50] loss: 0.002
+Epoch:  50
+[51,    50] loss: 0.002
+Epoch:  51
+[52,    50] loss: 0.002
+Epoch:  52
+[53,    50] loss: 0.002
+Epoch:  53
+[54,    50] loss: 0.002
+Epoch:  54
+[55,    50] loss: 0.002
+Epoch:  55
+[56,    50] loss: 0.002
+Epoch:  56
+[57,    50] loss: 0.001
+Epoch:  57
+[58,    50] loss: 0.002
+Epoch:  58
+[59,    50] loss: 0.002
+Epoch:  59
+[60,    50] loss: 0.001
+Epoch:  60
+[61,    50] loss: 0.003
+Epoch:  61
+[62,    50] loss: 0.002
+Epoch:  62
+[63,    50] loss: 0.001
+Epoch:  63
+[64,    50] loss: 0.002
+Epoch:  64
+[65,    50] loss: 0.002
+Epoch:  65
+[66,    50] loss: 0.001
+Epoch:  66
+[67,    50] loss: 0.001
+Epoch:  67
+[68,    50] loss: 0.002
+Epoch:  68
+[69,    50] loss: 0.002
+Epoch:  69
+[70,    50] loss: 0.001
+Epoch:  70
+[71,    50] loss: 0.001
+Epoch:  71
+[72,    50] loss: 0.001
+Epoch:  72
+[73,    50] loss: 0.002
+Epoch:  73
+[74,    50] loss: 0.002
+Epoch:  74
+[75,    50] loss: 0.001
+Epoch:  75
+[76,    50] loss: 0.002
+Epoch:  76
+[77,    50] loss: 0.001
+Epoch:  77
+[78,    50] loss: 0.001
+Epoch:  78
+[79,    50] loss: 0.002
+Epoch:  79
+[80,    50] loss: 0.002
+Epoch:  80
+[81,    50] loss: 0.001
+Epoch:  81
+[82,    50] loss: 0.001
+Epoch:  82
+[83,    50] loss: 0.001
+Epoch:  83
+[84,    50] loss: 0.001
+Epoch:  84
+[85,    50] loss: 0.001
+Epoch:  85
+[86,    50] loss: 0.001
+Epoch:  86
+[87,    50] loss: 0.001
+Epoch:  87
+[88,    50] loss: 0.001
+Epoch:  88
+[89,    50] loss: 0.002
+Epoch:  89
+[90,    50] loss: 0.001
+Epoch:  90
+[91,    50] loss: 0.001
+Epoch:  91
+[92,    50] loss: 0.001
+Epoch:  92
+[93,    50] loss: 0.001
+Epoch:  93
+[94,    50] loss: 0.003
+Epoch:  94
+[95,    50] loss: 0.001
+Epoch:  95
+[96,    50] loss: 0.001
+Epoch:  96
+[97,    50] loss: 0.001
+Epoch:  97
+[98,    50] loss: 0.003
+Epoch:  98
+[99,    50] loss: 0.000
+Epoch:  99
+[100,    50] loss: 0.001
+Finished Training
+Predicting on the test set...
+Correct classes [3.0, 5.0, 4.0, 3.0, 11.0, 0.0, 6.0, 4.0, 6.0, 0.0, 5.0, 3.0, 1.0, 4.0, 1.0]
+Total count for each class [12.0, 20.0, 16.0, 8.0, 32.0, 8.0, 24.0, 12.0, 28.0, 4.0, 24.0, 8.0, 12.0, 24.0, 8.0]
+Accuracy of adam-baltatu : 25 %
+Accuracy of alfred-sisley : 25 %
+Accuracy of antoine-blanchard : 25 %
+Accuracy of arkhip-kuindzhi : 37 %
+Accuracy of armand-guillaumin : 34 %
+Accuracy of auguste-rodin :  0 %
+Accuracy of berthe-morisot : 25 %
+Accuracy of camille-pissarro : 33 %
+Accuracy of childe-hassam : 21 %
+Accuracy of claude-monet :  0 %
+Accuracy of constantin-artachino : 20 %
+Accuracy of cornelis-vreedenburgh : 37 %
+Accuracy of edgar-degas :  8 %
+Accuracy of edouard-manet : 16 %
+Accuracy of eugene-boudin : 12 %
+Learning rate 0.001, no of epochs 100
+Loading training data....
+Loading test data....
+Epoch:  0
+[1,    50] loss: 0.146
+Epoch:  1
+[2,    50] loss: 0.069
+Epoch:  2
+[3,    50] loss: 0.051
+Epoch:  3
+[4,    50] loss: 0.042
+Epoch:  4
+[5,    50] loss: 0.036
+Epoch:  5
+[6,    50] loss: 0.024
+Epoch:  6
+[7,    50] loss: 0.022
+Epoch:  7
+[8,    50] loss: 0.013
+Epoch:  8
+[9,    50] loss: 0.009
+Epoch:  9
+[10,    50] loss: 0.013
+Epoch:  10
+[11,    50] loss: 0.008
+Epoch:  11
+[12,    50] loss: 0.008
+Epoch:  12
+[13,    50] loss: 0.004
+Epoch:  13
+[14,    50] loss: 0.004
+Epoch:  14
+[15,    50] loss: 0.004
+Epoch:  15
+[16,    50] loss: 0.005
+Epoch:  16
+[17,    50] loss: 0.004
+Epoch:  17
+[18,    50] loss: 0.003
+Epoch:  18
+[19,    50] loss: 0.001
+Epoch:  19
+[20,    50] loss: 0.001
+Epoch:  20
+[21,    50] loss: 0.003
+Epoch:  21
+[22,    50] loss: 0.003
+Epoch:  22
+[23,    50] loss: 0.004
+Epoch:  23
+[24,    50] loss: 0.003
+Epoch:  24
+[25,    50] loss: 0.002
+Epoch:  25
+[26,    50] loss: 0.002
+Epoch:  26
+[27,    50] loss: 0.003
+Epoch:  27
+[28,    50] loss: 0.001
+Epoch:  28
+[29,    50] loss: 0.003
+Epoch:  29
+[30,    50] loss: 0.003
+Epoch:  30
+[31,    50] loss: 0.003
+Epoch:  31
+[32,    50] loss: 0.002
+Epoch:  32
+[33,    50] loss: 0.002
+Epoch:  33
+[34,    50] loss: 0.002
+Epoch:  34
+[35,    50] loss: 0.002
+Epoch:  35
+[36,    50] loss: 0.003
+Epoch:  36
+[37,    50] loss: 0.002
+Epoch:  37
+[38,    50] loss: 0.002
+Epoch:  38
+[39,    50] loss: 0.002
+Epoch:  39
+[40,    50] loss: 0.002
+Epoch:  40
+[41,    50] loss: 0.002
+Epoch:  41
+[42,    50] loss: 0.000
+Epoch:  42
+[43,    50] loss: 0.003
+Epoch:  43
+[44,    50] loss: 0.002
+Epoch:  44
+[45,    50] loss: 0.003
+Epoch:  45
+[46,    50] loss: 0.001
+Epoch:  46
+[47,    50] loss: 0.002
+Epoch:  47
+[48,    50] loss: 0.001
+Epoch:  48
+[49,    50] loss: 0.001
+Epoch:  49
+[50,    50] loss: 0.001
+Epoch:  50
+[51,    50] loss: 0.001
+Epoch:  51
+[52,    50] loss: 0.002
+Epoch:  52
+[53,    50] loss: 0.001
+Epoch:  53
+[54,    50] loss: 0.002
+Epoch:  54
+[55,    50] loss: 0.000
+Epoch:  55
+[56,    50] loss: 0.001
+Epoch:  56
+[57,    50] loss: 0.001
+Epoch:  57
+[58,    50] loss: 0.001
+Epoch:  58
+[59,    50] loss: 0.001
+Epoch:  59
+[60,    50] loss: 0.001
+Epoch:  60
+[61,    50] loss: 0.001
+Epoch:  61
+[62,    50] loss: 0.001
+Epoch:  62
+[63,    50] loss: 0.001
+Epoch:  63
+[64,    50] loss: 0.000
+Epoch:  64
+[65,    50] loss: 0.001
+Epoch:  65
+[66,    50] loss: 0.002
+Epoch:  66
+[67,    50] loss: 0.004
+Epoch:  67
+[68,    50] loss: 0.002
+Epoch:  68
+[69,    50] loss: 0.001
+Epoch:  69
+[70,    50] loss: 0.001
+Epoch:  70
+[71,    50] loss: 0.000
+Epoch:  71
+[72,    50] loss: 0.000
+Epoch:  72
+[73,    50] loss: 0.000
+Epoch:  73
+[74,    50] loss: 0.000
+Epoch:  74
+[75,    50] loss: 0.001
+Epoch:  75
+[76,    50] loss: 0.000
+Epoch:  76
+[77,    50] loss: 0.000
+Epoch:  77
+[78,    50] loss: 0.000
+Epoch:  78
+[79,    50] loss: 0.001
+Epoch:  79
+[80,    50] loss: 0.001
+Epoch:  80
+[81,    50] loss: 0.000
+Epoch:  81
+[82,    50] loss: 0.000
+Epoch:  82
+[83,    50] loss: 0.000
+Epoch:  83
+[84,    50] loss: 0.000
+Epoch:  84
+[85,    50] loss: 0.000
+Epoch:  85
+[86,    50] loss: 0.000
+Epoch:  86
+[87,    50] loss: 0.000
+Epoch:  87
+[88,    50] loss: 0.000
+Epoch:  88
+[89,    50] loss: 0.001
+Epoch:  89
+[90,    50] loss: 0.000
+Epoch:  90
+[91,    50] loss: 0.001
+Epoch:  91
+[92,    50] loss: 0.000
+Epoch:  92
+[93,    50] loss: 0.001
+Epoch:  93
+[94,    50] loss: 0.000
+Epoch:  94
+[95,    50] loss: 0.001
+Epoch:  95
+[96,    50] loss: 0.000
+Epoch:  96
+[97,    50] loss: 0.000
+Epoch:  97
+[98,    50] loss: 0.000
+Epoch:  98
+[99,    50] loss: 0.001
+Epoch:  99
+[100,    50] loss: 0.001
+Finished Training
+Predicting on the test set...
+Correct classes [4.0, 2.0, 7.0, 3.0, 6.0, 5.0, 2.0, 4.0, 2.0, 3.0, 6.0, 6.0, 4.0, 7.0, 3.0]
+Total count for each class [20.0, 12.0, 20.0, 16.0, 20.0, 16.0, 8.0, 20.0, 8.0, 16.0, 20.0, 16.0, 20.0, 20.0, 8.0]
+Accuracy of adam-baltatu : 20 %
+Accuracy of alfred-sisley : 16 %
+Accuracy of antoine-blanchard : 35 %
+Accuracy of arkhip-kuindzhi : 18 %
+Accuracy of armand-guillaumin : 30 %
+Accuracy of auguste-rodin : 31 %
+Accuracy of berthe-morisot : 25 %
+Accuracy of camille-pissarro : 20 %
+Accuracy of childe-hassam : 25 %
+Accuracy of claude-monet : 18 %
+Accuracy of constantin-artachino : 30 %
+Accuracy of cornelis-vreedenburgh : 37 %
+Accuracy of edgar-degas : 20 %
+Accuracy of edouard-manet : 35 %
+Accuracy of eugene-boudin : 37 %
+Learning rate 0.01, no of epochs 100
+Loading training data....
+Loading test data....
+Epoch:  0
+[1,    50] loss: 0.192
+Epoch:  1
+[2,    50] loss: 0.103
+Epoch:  2
+[3,    50] loss: 0.094
+Epoch:  3
+[4,    50] loss: 0.083
+Epoch:  4
+[5,    50] loss: 0.079
+Epoch:  5
+[6,    50] loss: 0.075
+Epoch:  6
+[7,    50] loss: 0.078
+Epoch:  7
+[8,    50] loss: 0.076
+Epoch:  8
+[9,    50] loss: 0.073
+Epoch:  9
+[10,    50] loss: 0.076
+Epoch:  10
+[11,    50] loss: 0.071
+Epoch:  11
+[12,    50] loss: 0.073
+Epoch:  12
+[13,    50] loss: 0.069
+Epoch:  13
+[14,    50] loss: 0.069
+Epoch:  14
+[15,    50] loss: 0.067
+Epoch:  15
+[16,    50] loss: 0.069
+Epoch:  16
+[17,    50] loss: 0.068
+Epoch:  17
+[18,    50] loss: 0.067
+Epoch:  18
+[19,    50] loss: 0.067
+Epoch:  19
+[20,    50] loss: 0.067
+Epoch:  20
+[21,    50] loss: 0.066
+Epoch:  21
+[22,    50] loss: 0.067
+Epoch:  22
+[23,    50] loss: 0.066
+Epoch:  23
+[24,    50] loss: 0.066
+Epoch:  24
+[25,    50] loss: 0.064
+Epoch:  25
+[26,    50] loss: 0.069
+Epoch:  26
+[27,    50] loss: 0.065
+Epoch:  27
+[28,    50] loss: 0.063
+Epoch:  28
+[29,    50] loss: 0.063
+Epoch:  29
+[30,    50] loss: 0.063
+Epoch:  30
+[31,    50] loss: 0.061
+Epoch:  31
+[32,    50] loss: 0.062
+Epoch:  32
+[33,    50] loss: 0.065
+Epoch:  33
+[34,    50] loss: 0.063
+Epoch:  34
+[35,    50] loss: 0.063
+Epoch:  35
+[36,    50] loss: 0.059
+Epoch:  36
+[37,    50] loss: 0.062
+Epoch:  37
+[38,    50] loss: 0.060
+Epoch:  38
+[39,    50] loss: 0.060
+Epoch:  39
+[40,    50] loss: 0.061
+Epoch:  40
+[41,    50] loss: 0.058
+Epoch:  41
+[42,    50] loss: 0.060
+Epoch:  42
+[43,    50] loss: 0.059
+Epoch:  43
+[44,    50] loss: 0.056
+Epoch:  44
+[45,    50] loss: 0.058
+Epoch:  45
+[46,    50] loss: 0.057
+Epoch:  46
+[47,    50] loss: 0.056
+Epoch:  47
+[48,    50] loss: 0.054
+Epoch:  48
+[49,    50] loss: 0.055
+Epoch:  49
+[50,    50] loss: 0.055
+Epoch:  50
+[51,    50] loss: 0.051
+Epoch:  51
+[52,    50] loss: 0.054
+Epoch:  52
+[53,    50] loss: 0.054
+Epoch:  53
+[54,    50] loss: 0.052
+Epoch:  54
+[55,    50] loss: 0.054
+Epoch:  55
+[56,    50] loss: 0.050
+Epoch:  56
+[57,    50] loss: 0.050
+Epoch:  57
+[58,    50] loss: 0.049
+Epoch:  58
+[59,    50] loss: 0.046
+Epoch:  59
+[60,    50] loss: 0.043
+Epoch:  60
+[61,    50] loss: 0.049
+Epoch:  61
+[62,    50] loss: 0.044
+Epoch:  62
+[63,    50] loss: 0.039
+Epoch:  63
+[64,    50] loss: 0.035
+Epoch:  64
+[65,    50] loss: 0.036
+Epoch:  65
+[66,    50] loss: 0.035
+Epoch:  66
+[67,    50] loss: 0.033
+Epoch:  67
+[68,    50] loss: 0.033
+Epoch:  68
+[69,    50] loss: 0.030
+Epoch:  69
+[70,    50] loss: 0.025
+Epoch:  70
+[71,    50] loss: 0.033
+Epoch:  71
+[72,    50] loss: 0.030
+Epoch:  72
+[73,    50] loss: 0.027
+Epoch:  73
+[74,    50] loss: 0.021
+Epoch:  74
+[75,    50] loss: 0.018
+Epoch:  75
+[76,    50] loss: 0.015
+Epoch:  76
+[77,    50] loss: 0.014
+Epoch:  77
+[78,    50] loss: 0.010
+Epoch:  78
+[79,    50] loss: 0.009
+Epoch:  79
+[80,    50] loss: 0.007
+Epoch:  80
+[81,    50] loss: 0.010
+Epoch:  81
+[82,    50] loss: 0.007
+Epoch:  82
+[83,    50] loss: 0.006
+Epoch:  83
+[84,    50] loss: 0.008
+Epoch:  84
+[85,    50] loss: 0.004
+Epoch:  85
+[86,    50] loss: 0.009
+Epoch:  86
+[87,    50] loss: 0.003
+Epoch:  87
+[88,    50] loss: 0.005
+Epoch:  88
+[89,    50] loss: 0.003
+Epoch:  89
+[90,    50] loss: 0.002
+Epoch:  90
+[91,    50] loss: 0.002
+Epoch:  91
+[92,    50] loss: 0.003
+Epoch:  92
+[93,    50] loss: 0.001
+Epoch:  93
+[94,    50] loss: 0.002
+Epoch:  94
+[95,    50] loss: 0.001
+Epoch:  95
+[96,    50] loss: 0.003
+Epoch:  96
+[97,    50] loss: 0.003
+Epoch:  97
+[98,    50] loss: 0.001
+Epoch:  98
+[99,    50] loss: 0.001
+Epoch:  99
+[100,    50] loss: 0.001
+Finished Training
+Predicting on the test set...
+Correct classes [1.0, 2.0, 6.0, 2.0, 0.0, 6.0, 3.0, 2.0, 0.0, 4.0, 4.0, 3.0, 5.0, 3.0, 1.0]
+Total count for each class [16.0, 16.0, 16.0, 12.0, 8.0, 20.0, 12.0, 28.0, 12.0, 16.0, 20.0, 16.0, 20.0, 16.0, 12.0]
+Accuracy of adam-baltatu :  6 %
+Accuracy of alfred-sisley : 12 %
+Accuracy of antoine-blanchard : 37 %
+Accuracy of arkhip-kuindzhi : 16 %
+Accuracy of armand-guillaumin :  0 %
+Accuracy of auguste-rodin : 30 %
+Accuracy of berthe-morisot : 25 %
+Accuracy of camille-pissarro :  7 %
+Accuracy of childe-hassam :  0 %
+Accuracy of claude-monet : 25 %
+Accuracy of constantin-artachino : 20 %
+Accuracy of cornelis-vreedenburgh : 18 %
+Accuracy of edgar-degas : 25 %
+Accuracy of edouard-manet : 18 %
+Accuracy of eugene-boudin :  8 %
+Learning rate 0.1, no of epochs 100
+Loading training data....
+Loading test data....
+Epoch:  0
+[1,    50] loss: 0.487
+Epoch:  1
+[2,    50] loss: 0.079
+Epoch:  2
+[3,    50] loss: 0.077
+Epoch:  3
+[4,    50] loss: 0.075
+Epoch:  4
+[5,    50] loss: 0.073
+Epoch:  5
+[6,    50] loss: 0.070
+Epoch:  6
+[7,    50] loss: 0.071
+Epoch:  7
+[8,    50] loss: 0.069
+Epoch:  8
+[9,    50] loss: 0.069
+Epoch:  9
+[10,    50] loss: 0.067
+Epoch:  10
+[11,    50] loss: 0.069
+Epoch:  11
+[12,    50] loss: 0.067
+Epoch:  12
+[13,    50] loss: 0.068
+Epoch:  13
+[14,    50] loss: 0.067
+Epoch:  14
+[15,    50] loss: 0.071
+Epoch:  15
+[16,    50] loss: 0.066
+Epoch:  16
+[17,    50] loss: 0.066
+Epoch:  17
+[18,    50] loss: 0.066
+Epoch:  18
+[19,    50] loss: 0.066
+Epoch:  19
+[20,    50] loss: 0.068
+Epoch:  20
+[21,    50] loss: 0.068
+Epoch:  21
+[22,    50] loss: 0.064
+Epoch:  22
+[23,    50] loss: 0.065
+Epoch:  23
+[24,    50] loss: 0.065
+Epoch:  24
+[25,    50] loss: 0.065
+Epoch:  25
+[26,    50] loss: 0.065
+Epoch:  26
+[27,    50] loss: 0.066
+Epoch:  27
+[28,    50] loss: 0.064
+Epoch:  28
+[29,    50] loss: 0.065
+Epoch:  29
+[30,    50] loss: 0.064
+Epoch:  30
+[31,    50] loss: 0.065
+Epoch:  31
+[32,    50] loss: 0.065
+Epoch:  32
+[33,    50] loss: 0.064
+Epoch:  33
+[34,    50] loss: 0.063
+Epoch:  34
+[35,    50] loss: 0.062
+Epoch:  35
+[36,    50] loss: 0.064
+Epoch:  36
+[37,    50] loss: 0.060
+Epoch:  37
+[38,    50] loss: 0.064
+Epoch:  38
+[39,    50] loss: 0.063
+Epoch:  39
+[40,    50] loss: 0.061
+Epoch:  40
+[41,    50] loss: 0.060
+Epoch:  41
+[42,    50] loss: 0.060
+Epoch:  42
+[43,    50] loss: 0.060
+Epoch:  43
+[44,    50] loss: 0.060
+Epoch:  44
+[45,    50] loss: 0.060
+Epoch:  45
+[46,    50] loss: 0.061
+Epoch:  46
+[47,    50] loss: 0.059
+Epoch:  47
+[48,    50] loss: 0.060
+Epoch:  48
+[49,    50] loss: 0.057
+Epoch:  49
+[50,    50] loss: 0.059
+Epoch:  50
+[51,    50] loss: 0.059
+Epoch:  51
+[52,    50] loss: 0.057
+Epoch:  52
+[53,    50] loss: 0.055
+Epoch:  53
+[54,    50] loss: 0.054
+Epoch:  54
+[55,    50] loss: 0.051
+Epoch:  55
+[56,    50] loss: 0.052
+Epoch:  56
+[57,    50] loss: 0.050
+Epoch:  57
+[58,    50] loss: 0.054
+Epoch:  58
+[59,    50] loss: 0.050
+Epoch:  59
+[60,    50] loss: 0.052
+Epoch:  60
+[61,    50] loss: 0.048
+Epoch:  61
+[62,    50] loss: 0.049
+Epoch:  62
+[63,    50] loss: 0.045
+Epoch:  63
+[64,    50] loss: 0.044
+Epoch:  64
+[65,    50] loss: 0.042
+Epoch:  65
+[66,    50] loss: 0.043
+Epoch:  66
+[67,    50] loss: 0.042
+Epoch:  67
+[68,    50] loss: 0.038
+Epoch:  68
+[69,    50] loss: 0.037
+Epoch:  69
+[70,    50] loss: 0.034
+Epoch:  70
+[71,    50] loss: 0.037
+Epoch:  71
+[72,    50] loss: 0.031
+Epoch:  72
+[73,    50] loss: 0.029
+Epoch:  73
+[74,    50] loss: 0.033
+Epoch:  74
+[75,    50] loss: 0.029
+Epoch:  75
+[76,    50] loss: 0.024
+Epoch:  76
+[77,    50] loss: 0.023
+Epoch:  77
+[78,    50] loss: 0.025
+Epoch:  78
+[79,    50] loss: 0.020
+Epoch:  79
+[80,    50] loss: 0.023
+Epoch:  80
+[81,    50] loss: 0.018
+Epoch:  81
+[82,    50] loss: 0.016
+Epoch:  82
+[83,    50] loss: 0.013
+Epoch:  83
+[84,    50] loss: 0.012
+Epoch:  84
+[85,    50] loss: 0.015
+Epoch:  85
+[86,    50] loss: 0.016
+Epoch:  86
+[87,    50] loss: 0.013
+Epoch:  87
+[88,    50] loss: 0.010
+Epoch:  88
+[89,    50] loss: 0.011
+Epoch:  89
+[90,    50] loss: 0.012
+Epoch:  90
+[91,    50] loss: 0.012
+Epoch:  91
+[92,    50] loss: 0.008
+Epoch:  92
+[93,    50] loss: 0.004
+Epoch:  93
+[94,    50] loss: 0.006
+Epoch:  94
+[95,    50] loss: 0.006
+Epoch:  95
+[96,    50] loss: 0.006
+Epoch:  96
+[97,    50] loss: 0.003
+Epoch:  97
+[98,    50] loss: 0.005
+Epoch:  98
+[99,    50] loss: 0.002
+Epoch:  99
+[100,    50] loss: 0.003
+Finished Training
+Predicting on the test set...
+Correct classes [1.0, 0.0, 1.0, 1.0, 3.0, 2.0, 2.0, 0.0, 1.0, 2.0, 2.0, 5.0, 2.0, 4.0, 4.0]
+Total count for each class [12.0, 8.0, 16.0, 16.0, 24.0, 20.0, 12.0, 16.0, 16.0, 4.0, 16.0, 20.0, 16.0, 28.0, 16.0]
+Accuracy of adam-baltatu :  8 %
+Accuracy of alfred-sisley :  0 %
+Accuracy of antoine-blanchard :  6 %
+Accuracy of arkhip-kuindzhi :  6 %
+Accuracy of armand-guillaumin : 12 %
+Accuracy of auguste-rodin : 10 %
+Accuracy of berthe-morisot : 16 %
+Accuracy of camille-pissarro :  0 %
+Accuracy of childe-hassam :  6 %
+Accuracy of claude-monet : 50 %
+Accuracy of constantin-artachino : 12 %
+Accuracy of cornelis-vreedenburgh : 25 %
+Accuracy of edgar-degas : 12 %
+Accuracy of edouard-manet : 14 %
+Accuracy of eugene-boudin : 25 %
+
+Process finished with exit code 0
