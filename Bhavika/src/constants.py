@@ -11,3 +11,7 @@ test_size = 240
 mappings_path = '../data/top15_mappings.csv'
 
 pickle_path = '../models/'
+
+cnn_model = 'CNN_checkpoint.pth.tar'
+resnet18_pre = 'resnet18_checkpoint.pth.tar'
+resnet18_tuned = 'resnet18_re_checkpoint.pth.tar'

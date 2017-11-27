@@ -79,8 +79,6 @@ def main(learning_rate, epochs=100):
             loss.backward()
             optimizer.step()
 
-            save_checkpoint({'epoch': epoch + 1, 'arch': 'CNN_2Layer', 'state_dict': net.state_dict(), 'model': net})
-
             # print statistics
             running_loss += loss.data[0]
             if i % 50 == 49:  # print every 50 mini-batches
@@ -89,7 +87,7 @@ def main(learning_rate, epochs=100):
                 running_loss = 0.0
 
     print('Finished Training')
-
+    save_checkpoint({'epoch': epochs, 'arch': 'CNN_2Layer', 'state_dict': net.state_dict(), 'model': net})
     print("Predicting on the test set... ")
     class_correct = list(0. for i in range(15))
     class_total = list(0. for i in range(15))
@@ -127,7 +125,7 @@ def main(learning_rate, epochs=100):
             artists[i], 100 * class_correct[i] / class_total[i]))
 
 
-def save_checkpoint(state, path=pickle_path, filename='CNN_checkpoint.pth.tar'):
+def save_checkpoint(state, path=pickle_path, filename='cnn_2layer.pth.tar'):
     torch.save(state, path+filename)
 
 
@@ -145,6 +143,7 @@ if __name__ == '__main__':
 
     combinations = list(itertools.product(lrs, epochs))
 
-    for c in combinations:
-        print("Learning rate {}, no of epochs {}".format(c[0], c[1]))
-        main(learning_rate=c[0], epochs=c[1])
+    # for c in combinations:
+    #     print("Learning rate {}, no of epochs {}".format(c[0], c[1]))
+    #     main(learning_rate=c[0], epochs=c[1])
+    main(learning_rate=0.001, epochs=100)
