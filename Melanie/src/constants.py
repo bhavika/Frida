@@ -6,8 +6,8 @@ Created on Fri Nov 24 01:01:25 2017
 """
 
 #Prep_dataset.py 
-csv = 'C:\\Users\\Melanie\\Documents\\GitHub\\Frida\\Bhavika\\data\\top15.csv'
-wiki_art_path = 'C:\\Users\\Melanie\\Desktop\\WikiartData\\wikiart\\Impressionism\\'
+csv = '../data/top15.csv'
+wiki_art_path = '/home/bhavika/wikiart/'
 original_img_path = 'C:\\Users\\Melanie\\Desktop\\impress_data'
 small_img_path = 'C:\\Users\\Melanie\\Desktop\\impress_data_small\\'
 
@@ -18,11 +18,11 @@ img_count = 600
 bs = 15
 number_of_classes = 15
 epochs = 100
-model_folder = 'C:/KerasModels/Model'
+model_folder = '../models/'
 
 #PredictArtist.py
-model_path = 'C:\KerasModels\Model2017-11-24 17-15-06\ArtistIdentificationModel.h5'
+model_path = '../models/ArtistIdentificationModel.h5'
 test_samples = 4
 
 #LoadDataset_predictonly
-demo_path = 'C:\\Users\\Melanie\\Desktop\\randImg\\'
+demo_path = '../data/demo/'
