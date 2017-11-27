@@ -2,7 +2,7 @@ import torch
 import torch.utils.data as data_utils
 from torch.autograd import Variable
 import pandas as pd
-
+from PIL import Image
 from constants import *
 from cnn import Net
 from resnet import resnet18
@@ -60,13 +60,26 @@ def show_training_data(predictions, train_data, train_images):
     train = pd.read_csv(train_data, sep=',')
 
     for p in predictions:
-        temp = train[train['class'] == p]
+        temp = train[train['class'] == p].head(5)
+        paintings = []
 
         for i in range(temp.shape[0]):
             row = temp.iloc[i]
             img_path = train_images + row['location']
             artist = row['artist']
+            paintings.append(img_path)
+        make_grid(artist, paintings)
 
+
+def make_grid(artist, paintings):
+    img_grid = Image.new('RGB', (224 * 5, 224))
+    x_offset = 0
+    for p in paintings:
+        im = Image.open(p)
+        im = im.resize((224, 224))
+        img_grid.paste(im, (x_offset, 0))
+        x_offset += 224
+    img_grid.save(demo_data+artist+'.jpg')
 
 predictions = predict('cnn', trained_models=trained_models)
 show_training_data(predictions, train_data=train_path, train_images=train_demo_data)
