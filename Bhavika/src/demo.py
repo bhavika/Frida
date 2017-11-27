@@ -1,12 +1,13 @@
-import pickle
 import torch
+import torch.utils.data as data_utils
+from torch.autograd import Variable
+import pandas as pd
+
 from constants import *
 from cnn import Net
 from resnet import resnet18
 from resnet_retrained import _classifier
 from wikiart import WikiartDataset
-import torch.utils.data as data_utils
-from torch.autograd import Variable
 
 
 def load_model(path):
@@ -54,4 +55,18 @@ def predict(arch, trained_models):
     return y_pred
 
 
+def show_training_data(predictions, train_data, train_images):
+
+    train = pd.read_csv(train_data, sep=',')
+
+    for p in predictions:
+        temp = train[train['class'] == p]
+
+        for i in range(temp.shape[0]):
+            row = temp.iloc[i]
+            img_path = train_images + row['location']
+            artist = row['artist']
+
+
 predictions = predict('cnn', trained_models=trained_models)
+show_training_data(predictions, train_data=train_path, train_images=train_demo_data)
