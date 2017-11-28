@@ -6,6 +6,8 @@ import LoadDataset
 from keras.models import load_model
 import constants
 from sklearn.metrics import precision_score, accuracy_score, recall_score
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
 # returns a compiled model
 # identical to the previous one
@@ -22,6 +24,7 @@ modelPredictions = model.predict(x_predict)
 
 print("Got predictions.")
 
+#plt.imshow(x_predict[0])
 
 
 baltatuCorrect = 0
@@ -101,8 +104,6 @@ while imgNum < totalImages:
     imgNum += 1
 
 print("Done.")
-#actual_vals = [0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,
-          #     9,9,9,9,10,10,10,10,11,11,11,11,12,12,12,12,13,13,13,13,14,14,14,14]
 print(maxLabels)
 print("Accuracy")
 print(accuracy_score(y_predict, maxLabels))
@@ -142,8 +143,3 @@ print(manetCorrect/constants.test_samples)
 print("Boudin:")
 print(boudinCorrect/constants.test_samples)
 print("Total Correct:")
-print(totalCorrect)
-print("Number of Images:")
-print(totalImages)
-print("Overall Accuracy:")
-print (totalCorrect/totalImages)

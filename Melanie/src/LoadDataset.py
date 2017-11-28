@@ -29,7 +29,6 @@ def getDataset(testDataSuffixList = [1, 2], predictDataSuffix = [0]):
     testSize = 0
     predictSize = 0
     i=0
-    
     imageNumber = 0
     
     imageList = [f for f in os.listdir(imgDir) if isfile(join(imgDir, f))]  
@@ -41,11 +40,11 @@ def getDataset(testDataSuffixList = [1, 2], predictDataSuffix = [0]):
             imageSize = getsize(imageFilename)
             if imageSize > 0:
                 imageArray = load_image(imageFilename)
-                if imageNumber % 10 in testDataSuffixList:
+                if imageNumber % 9 in testDataSuffixList:
                     testImages.append(imageArray)
                     testResult.append(artistClass)
                     testSize += 1
-                elif imageNumber % 10 not in predictDataSuffix:
+                elif imageNumber % 3 not in predictDataSuffix:
                     trainingImages.append(imageArray)
                     trainingResult.append(artistClass)
                     trainSize += 1
@@ -54,8 +53,7 @@ def getDataset(testDataSuffixList = [1, 2], predictDataSuffix = [0]):
 
         imageNumber += 1
         i += 1
-
-
+        
     trainingSet = (np.asarray(trainingImages), np.asarray(trainingResult))
     testSet = (np.asarray(testImages), np.asarray(testResult))
     print(trainingResult)
@@ -84,7 +82,7 @@ def getDatasetForPrediction(predictDataSuffix = [0]):
             imageSize = getsize(imageFilename)
             if imageSize > 0:
                 imageArray = load_image(imageFilename)
-                if imageNumber % 10 in predictDataSuffix:
+                if imageNumber % 3 in predictDataSuffix:
                     predictImages.append(imageArray)
                     predictResult.append(artistClass)
                     predictFilepaths.append(imageFilename)
