@@ -38,6 +38,7 @@ def mse(imageA, imageB):
 
     #err = ((np.sum(np.array(imageA.resize((244,244))).astype(np.float) - np.array(imageB.resize((244,244))).astype(np.float)) ** 2))
     err = ((np.sum(np.array(imageA.resize((244,244))).astype(np.float) - np.array(imageB.resize((244,244))).astype(np.float)) ** 2))
+    #err = ((np.sum(np.array(imageA).astype(np.float) - np.array(imageB).astype(np.float)) ** 2))
     #err /= float(imageA.shape[0] * imageA.shape[1])
     err /= float(np.array(imageA.resize((244, 244))).astype(np.float).shape[0] * np.array(imageB.resize((244, 244))).astype(np.float).shape[1])
 
@@ -50,22 +51,46 @@ def PIL2array(img):
                     np.uint8).reshape(img.size[1], img.size[0], 3)
 
 def find_similiar_image(author_class,input_image):
-    paintings_by_artist = pd.read_csv(base_csv_file_location + 'author_image_mapping.csv', names=['class', 'absolute_path'], header=0)
+    paintings_by_artist = pd.read_csv(base_address + 'author_image_mapping.csv', names=['class', 'absolute_path'], header=0)
     error =[]
     min_index =0
     mse_value=100000000000000.0
     temp = 0.0
 
     for i in range(paintings_by_artist.shape[0]):
-        img = Image.open(paintings_by_artist.iloc[i]['absolute_path'],'r')
+        img = Image.open(paintings_by_artist.iloc[i]['absolute_path'])
+        #img.show()
         if paintings_by_artist.iloc[i]['class'] == author_class :
             temp= mse(input_image, img)
             if(temp <mse_value):
                 min_index =i
                 mse_value= temp
     similar_image =Image.open(paintings_by_artist.iloc[min_index]['absolute_path'],'r')
-    similar_image.show()
+    #similar_image.show()
     return similar_image
+
+def find_author_image(author_class):
+    paintings_by_artist = pd.read_csv(base_image_file_location + 'author_image_mapping.csv', names=['class', 'absolute_path'], header=0)
+    error =[]
+    min_index =0
+    mse_value=100000000000000.0
+    image_data  = []
+    temp = 0.0
+
+    for i in range(paintings_by_artist.shape[0]):
+        img = Image.open(paintings_by_artist.iloc[i]['absolute_path'])
+        #img.show()
+        if paintings_by_artist.iloc[i]['class'] == author_class :
+            image_data.insert(i,img)
+            if(i==5):
+                break
+            #temp= mse(input_image, img)
+            #if(temp <mse_value):
+            #    min_index =i
+            #    mse_value= temp
+    #similar_image =Image.open(paintings_by_artist.iloc[min_index]['absolute_path'],'r')
+    #similar_image.show()
+    return image_data
 
 def find_edge(im_file) :
     #image = Image.open(im_file)
@@ -107,6 +132,7 @@ def find_contour(im_file) :
     image = im_file.filter(ImageFilter.CONTOUR)
     #image = image.filter(ImageFilter.CONTOUR)
     #image.show()
+    #cv2.imwrite('arkhip-kuindzhi_red-sunset-1-contour.jpg', np.array(image).astype(np.float32))
 
     stat = ImageStat.Stat(image)
     #print "Read RMS find contour of image: "
@@ -117,6 +143,7 @@ def find_emboss(im_file) :
     #image = Image.open(im_file)
     image = im_file.filter(ImageFilter.EMBOSS)
     #image.show()
+    #cv2.imwrite('arkhip-kuindzhi_red-sunset-1-emboss.jpg', np.array(image).astype(np.float32))
     stat = ImageStat.Stat(image)
     #print "Read RMS find EMBOSS of image: "
     #print stat.rms[0]
@@ -126,6 +153,7 @@ def find_detail(im_file) :
     #image = Image.open(im_file)
     image = im_file.filter(ImageFilter.DETAIL)
     #image.show()
+    #cv2.imwrite('arkhip-kuindzhi_red-sunset-1-detail.jpg', np.array(image).astype(np.float32))
     stat = ImageStat.Stat(image)
     #print "Read RMS find detail(thumbnail) of image: "
     #print stat.rms[0]
@@ -134,7 +162,8 @@ def find_detail(im_file) :
 def find_edge_enhance(im_file) :
     #image = Image.open(im_file)
     image = im_file.filter(ImageFilter.EDGE_ENHANCE)
-    #image.show()
+    #image.show()        image =
+    #cv2.imwrite('arkhip-kuindzhi_red-sunset-1-detail-enhance.jpg', np.array(image).astype(np.float32))
     stat = ImageStat.Stat(image)
     #print "Read RMS find EDGE_ENHANCE of image: "
     #print stat.rms[0]
@@ -144,6 +173,7 @@ def find_edge_enhance_more(im_file) :
     #image = Image.open(im_file)
     image = im_file.filter(ImageFilter.EDGE_ENHANCE_MORE)
     #image.show()
+    #cv2.imwrite('arkhip-kuindzhi_red-sunset-1-detail-enhance-more.jpg', np.array(image).astype(np.float32))
     stat = ImageStat.Stat(image)
     #print "Read RMS find EDGE_ENHANCE_MORE of image: "
     #print stat.rms[0]
@@ -153,6 +183,7 @@ def find_smooth(im_file) :
     #image = Image.open(im_file)
     image = im_file.filter(ImageFilter.SMOOTH)
     #image.show()
+    #cv2.imwrite('arkhip-kuindzhi_red-sunset-1-detail-smooth.jpg', np.array(image).astype(np.float32))
     stat = ImageStat.Stat(image)
     #print "Read RMS find SMOOTH of image: "
     #print stat.rms[0]
@@ -162,6 +193,7 @@ def find_smooth_more(im_file) :
     #image = Image.open(im_file)
     image = im_file.filter(ImageFilter.SMOOTH_MORE)
     #image.show()
+    #cv2.imwrite('arkhip-kuindzhi_red-sunset-1-detail-smooth-more.jpg', np.array(image).astype(np.float32))
     stat = ImageStat.Stat(image)
     #print "Read RMS find SMOOTH more of image: "
     #print stat.rms[0]

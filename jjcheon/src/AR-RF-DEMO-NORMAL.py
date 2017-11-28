@@ -129,13 +129,14 @@ x_predict = loaded_model.predict(feature)
 #print(result)
 
 
-data = precision_recall_fscore_support(label_data, x_predict, average='micro')
-print("precision_recall_fscore_support result:",data)
-print ("Confusion Matrix:\n", confusion_matrix(label_data, x_predict))
-print ("Random Accuracy :", accuracy_score(label_data, x_predict)*100)
-print ("precision :", data[0])
-print ("recall:", data[1])
-print("--- %s seconds ---" % (time.time() - start_time))
+
+# data = precision_recall_fscore_support(label_data, x_predict, average='micro')
+# print("precision_recall_fscore_support result:",data)
+# print ("Confusion Matrix:\n", confusion_matrix(label_data, x_predict))
+# print ("Random Accuracy :", accuracy_score(label_data, x_predict)*100)
+# print ("precision :", data[0])
+# print ("recall:", data[1])
+# print("--- %s seconds ---" % (time.time() - start_time))
 
 
 # Import matplotlib
@@ -146,12 +147,27 @@ print("--- %s seconds ---" % (time.time() - start_time))
 # Zip together the `images_test` and `predicted` values in `images_and_predictions`
 images_and_predictions = list(zip(image_data, x_predict))
 
-f, axarr = plt.subplots(2,2)
-for index, (image, prediction) in enumerate(images_and_predictions[:2]):
-    axarr[index, 0].imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
-    axarr[index, 0].set_title('Predicted: ' + str(mapping.get(prediction)))
-    axarr[index, 1].imshow(find_similiar_image(prediction,image), cmap=plt.cm.gray_r, interpolation='nearest')
-    axarr[index, 1].set_title(str(mapping.get(prediction))+' similar image ')
+# f, axarr = plt.subplots(2,2)
+# for index, (image, prediction) in enumerate(images_and_predictions[:2]):
+#     axarr[index, 0].imshow(image, cmap=plt.cm.gray_r, interpolation='nearest')
+#     axarr[index, 0].set_title('Predicted: ' + str(mapping.get(prediction)))
+#     axarr[index, 1].imshow(find_similiar_image(prediction,image), cmap=plt.cm.gray_r, interpolation='nearest')
+#     axarr[index, 1].set_title(str(mapping.get(prediction))+' similar image ')
+# plt.show()
+
+f, axarr = plt.subplots(1,2,squeeze=False)
+plt.axis('off')
+plt.tick_params(axis='both', left='off', top='off', right='off', bottom='off', labelleft='off', labeltop='off', labelright='off', labelbottom='off')
+for index, (image, prediction) in enumerate(images_and_predictions[:1]):
+     axarr[index, 0].imshow(image)
+     #axarr[index, 0].set_title('Predicted: ' + str(mapping.get(prediction)))
+     axarr[index, 0].set_title('Painting from test dataset')
+     axarr[index, 1].text(0.0,0.6,'Original Author : Arkhip-Kuindzhi')
+         #bbox={'facecolor':'white', 'alpha':0.5, 'pad':10})
+     axarr[index, 1].text(0.0,0.5,'Author Prediction :'+str(mapping.get(prediction)),
+         bbox={'facecolor':'red', 'alpha':0.5, 'pad':10})
+     #axarr[index, 1].set_title('Original Author : arkhip-kuindzhi')
+
 plt.show()
 
 #axarr[1,0].imshow(image_datas[2])

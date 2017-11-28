@@ -5,8 +5,7 @@ import time
 #import pickle
 import matplotlib.pyplot as plt
 
-from util_image import find_blur_value, find_edge_enhance, find_smooth_more, find_brightness, find_edge, find_contour, \
-    find_emboss, find_edge_enhance_more, find_detail, find_smooth, find_similiar_image, find_blur_value2
+from util_image import *
 from scipy.stats import randint as sp_randint
 from Constant import *
 import numpy as np
@@ -104,11 +103,34 @@ x_predict = loaded_model.predict(feature)
 # Zip together the `images_test` and `predicted` values in `images_and_predictions`
 images_and_predictions = list(zip(image, x_predict))
 
-f, axarr = plt.subplots(2,2)
-for index, (image, prediction) in enumerate(images_and_predictions[:1]):
-    axarr[index, 0].imshow(img, cmap=plt.cm.gray_r, interpolation='nearest')
-    axarr[index, 0].set_title('Predicted: ' + str(mapping.get(prediction)))
-    axarr[index, 1].imshow(find_similiar_image(prediction,img), cmap=plt.cm.gray_r, interpolation='nearest')
-    axarr[index, 1].set_title(str(mapping.get(prediction))+' similar image ')
-plt.show()
+# f, axarr = plt.subplots(2,2)
+# for index, (image, prediction) in enumerate(images_and_predictions[:1]):
+#     axarr[index, 0].imshow(img, cmap=plt.cm.gray_r, interpolation='nearest')
+#     axarr[index, 0].set_title('Predicted: ' + str(mapping.get(prediction)))
+#     axarr[index, 1].imshow(find_similiar_image(prediction,img), cmap=plt.cm.gray_r, interpolation='nearest')
+#     axarr[index, 1].set_title(str(mapping.get(prediction))+' similar image ')
+# plt.show()
 
+f1, axarr1 = plt.subplots(1,2)
+plt.axis('off')
+plt.tick_params(axis='both', left='off', top='off', right='off', bottom='off', labelleft='off', labeltop='off', labelright='off', labelbottom='off')
+
+for index, (image, prediction) in enumerate(images_and_predictions[:1]):
+    axarr1[0].imshow(img)
+    axarr1[0].set_title('Picture chosen from Google without a label ')
+    axarr1[1].text(0.0, 0.5, 'Author Prediction :' + str(mapping.get(prediction)),
+                   bbox = {'facecolor': 'red', 'alpha': 0.5, 'pad': 10})
+    plt.show()
+
+
+image_data = find_author_image(prediction)
+f, axarr = plt.subplots(1,5,squeeze=False)
+plt.axis('off')
+plt.tick_params(axis='both', left='off', top='off', right='off', bottom='off', labelleft='off', labeltop='off', labelright='off', labelbottom='off')
+for index, (image, prediction) in enumerate(images_and_predictions[:1]):
+    axarr[index, 0].imshow(image_data[0])
+    axarr[index, 1].imshow(image_data[1])
+    axarr[index, 2].imshow(image_data[2])
+    axarr[index, 3].imshow(image_data[3])
+    axarr[index, 4].imshow(image_data[4])
+plt.show()
