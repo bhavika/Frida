@@ -44,14 +44,16 @@ def select_impressionist_artists(filepath):
             artist_paintings_count[artist_name] += 1
         else:
             artist_paintings_count[artist_name] = 1
-    print("Total Unique Artists in the Impressionism style:", len(unique_artists))
+    print("Total Unique Artists in the style:", len(unique_artists))
     print("Paintings by each artist:", artist_paintings_count)
 
-    more_than_40 = {k: v for k,v in artist_paintings_count.items() if v >= 40}
-    more_than_300 = {k: v for k, v in artist_paintings_count.items() if v >= 300}
+    return len(unique_artists)
 
-    print("{} artists with 40 paintings or more: {}".format(len(more_than_40), more_than_40))
-    print("{} artists with 300 paintings or more: {}".format(len(more_than_300), more_than_300))
+    # more_than_40 = {k: v for k,v in artist_paintings_count.items() if v >= 40}
+    # more_than_300 = {k: v for k, v in artist_paintings_count.items() if v >= 300}
+    #
+    # print("{} artists with 40 paintings or more: {}".format(len(more_than_40), more_than_40))
+    # print("{} artists with 300 paintings or more: {}".format(len(more_than_300), more_than_300))
 
 
 def create_traintest(filepath, target_suffix):
@@ -140,9 +142,22 @@ def validate_traintest(train_path, test_path):
 if __name__ == '__main__':
     train_file = '/artist_train.csv'
     style = 'Impressionism'
+
+    styles = ['Abstract_Expressionism', 'Action_painting', 'Analytical_Cubism', 'Art_Nouveau_Modern', 'Baroque',
+              'Color_Field_Painting', 'Contemporary_Realism', 'Cubism', 'Early_Renaissance', 'Expressionism',
+              'Fauvism', 'High_Renaissance', 'Impressionism', 'Mannerism_Late_Renaissance', 'Minimalism',
+              'Naive_Art_Primitivism', 'New_Realism', 'Northern_Renaissance', 'Pointillism', 'Pop_Art',
+              'Post_Impressionism', 'Realism', 'Rococo', 'Romanticism', 'Symbolism', 'Synthetic_Cubism', 'Ukiyo_e']
+
+    n_artists = 0
+    for s in styles:
+        n_artists += select_impressionist_artists(base_address+s)
+
+    print("Total unique artists in the Wikiart dataset: ", n_artists)
+
     # read_artist_data(base_address=base_address,filepath=train_file)
-    select_impressionist_artists(base_address+style)
-    create_dataset(base_address+style, artist_count=15, image_count=40)
-    dsname = 'top15'
-    create_traintest('../data/{}.csv'.format(dsname), dsname)
-    validate_traintest('../data/train_{}.csv'.format(dsname), '../data/test_{}.csv'.format(dsname))
+    # select_impressionist_artists(base_address+style)
+    # create_dataset(base_address+style, artist_count=15, image_count=40)
+    # dsname = 'top15'
+    # create_traintest('../data/{}.csv'.format(dsname), dsname)
+    # validate_traintest('../data/train_{}.csv'.format(dsname), '../data/test_{}.csv'.format(dsname))
